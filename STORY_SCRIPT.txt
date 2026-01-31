@@ -1,0 +1,430 @@
+================================================================================
+VIDEO GAME SALES DATA VISUALIZATION - STORY SCRIPT
+================================================================================
+A Cinematic Data-Driven Presentation
+Target Audience: Game Development Companies & Investors
+Goal: Answer "What game should we develop to maximize profit?"
+================================================================================
+
+
+================================================================================
+SLIDE 1: TITLE SLIDE
+================================================================================
+Type: Text Only (No chart)
+Duration: 3-4 seconds
+
+Visual:
+  - Dark background with subtle gradient
+  - Large title text with animation
+  - Key stats display
+
+Content:
+  - Title: "The Billion Dollar Gaming Industry"
+  - Subtitle: "Data-Driven Analysis of 64,016 Games"
+  - Stats: 64,016 Games | $6.6B Total Sales | 2024 Dataset
+
+Animation:
+  - Text fades in with slide-up effect
+  - Stats counter animation
+
+Transition to next: Zoom in
+
+
+================================================================================
+SLIDE 2: THE BIG QUESTION
+================================================================================
+Type: Text Only (Question reveal)
+Duration: 2-3 seconds
+
+Visual:
+  - Centered large text
+  - Gradient text effect
+
+Content:
+  - "If you want to make money in gaming..."
+  - "What game should you develop?"
+
+Animation:
+  - Text reveal with dramatic pause
+
+Transition to next: Fade
+
+
+================================================================================
+SLIDE 3: TOP 10 BEST-SELLING GAMES
+================================================================================
+Type: HORIZONTAL BAR CHART
+R Chart Reference: r_01_top_games.png
+Duration: 5-6 seconds
+
+Data:
+  1. Grand Theft Auto V (PS3)     - $20.3M  [GOLD]
+  2. Grand Theft Auto V (PS4)     - $19.4M  [GOLD]
+  3. GTA: Vice City (PS2)         - $16.2M  [GOLD]
+  4. Grand Theft Auto V (X360)    - $15.9M  [GOLD]
+  5. Call of Duty: Black Ops 3    - $15.1M  [PINK]
+  6. CoD: Modern Warfare 3        - $14.8M  [PINK]
+  7. Call of Duty: Black Ops      - $14.7M  [PINK]
+  8. Red Dead Redemption 2        - $13.9M  [ORANGE]
+  9. CoD: Black Ops II (X360)     - $13.9M  [PINK]
+  10. CoD: Black Ops II (PS3)     - $13.8M  [PINK]
+
+Key Insight:
+  - GTA V appears 3 TIMES = Cross-platform strategy works!
+  - Call of Duty dominates (5 entries)
+  - Action/Shooter games dominate
+
+Color Coding:
+  - Gold = GTA franchise
+  - Pink = Call of Duty franchise
+  - Orange = Other Rockstar
+
+Animation:
+  - Bars slide in from left, one by one with stagger
+  - Values count up as bars fill
+
+Transition to next: Pan Right
+
+
+================================================================================
+SLIDE 4: CONSOLE WARS - MARKET SHARE
+================================================================================
+Type: DONUT/PIE CHART
+R Chart Reference: r_02_console_wars.png
+Duration: 4-5 seconds
+
+Data:
+  - PlayStation: 50.6% ($3,266M) [PLAYSTATION BLUE #003087]
+  - Nintendo: 25.8% ($1,629M) [NINTENDO RED #e60012]
+  - Xbox: 21.1% ($1,361M) [XBOX GREEN #107c10]
+  - PC: 2.6% ($169M) [GRAY #6b7280]
+
+Key Insight:
+  - PlayStation DOMINATES with over 50%
+  - Console gaming > PC gaming in sales data
+
+Animation:
+  - Donut rotates in from 0 degrees
+  - Segments appear sequentially
+  - Percentage labels pop up
+
+Transition to next: Rotate 3D
+
+
+================================================================================
+SLIDE 5: TOP 10 GAMING CONSOLES
+================================================================================
+Type: HORIZONTAL BAR CHART
+R Chart Reference: r_03_top_consoles.png
+Duration: 4-5 seconds
+
+Data:
+  1. PS2 - $1,255M [BLUE]
+  2. X360 - $969M [GREEN]
+  3. PS3 - $939M [BLUE]
+  4. Wii - $895M [RED]
+  5. PS4 - $560M [BLUE]
+  6. DS - $501M [RED]
+  7. PS - $424M [BLUE]
+  8. XOne - $383M [GREEN]
+  9. 3DS - $260M [RED]
+  10. PSP - $249M [BLUE]
+
+Key Insight:
+  - PS2 is the KING of consoles
+  - PlayStation has 5 consoles in top 10
+  - Legacy consoles still dominate (PS2, X360, PS3)
+
+Color Coding:
+  - Blue = PlayStation family
+  - Green = Xbox family
+  - Red = Nintendo family
+
+Animation:
+  - Bars grow from left to right with stagger
+
+Transition to next: Slide Up
+
+
+================================================================================
+SLIDE 6: GENRE BREAKDOWN
+================================================================================
+Type: VERTICAL BAR CHART
+R Chart Reference: r_04_genres.png
+Duration: 4-5 seconds
+
+Data:
+  1. Sports - $1,188M [GREEN #00ff88]
+  2. Action - $1,126M [ORANGE #ff6b00]
+  3. Shooter - $996M [PINK #ff2d92]
+  4. Misc - $558M [GRAY]
+  5. Racing - $526M [BLUE #00d4ff]
+  6. Role-Playing - $427M [PURPLE #a855f7]
+  7. Platform - $349M [BLUE]
+  8. Fighting - $341M [PINK]
+  9. Adventure - $325M [GREEN]
+  10. Simulation - $301M [GRAY]
+
+Key Insight:
+  - Sports + Action + Shooter = TOP 3
+  - Action + Shooter = 32% of all sales
+  - These are the "safe bet" genres
+
+Animation:
+  - Bars rise from bottom with stagger
+  - Top 3 bars highlighted with glow effect
+
+Transition to next: Spiral Zoom
+
+
+================================================================================
+SLIDE 7: REGIONAL SALES DISTRIBUTION
+================================================================================
+Type: DONUT/PIE CHART
+R Chart Reference: r_05_regional.png
+Duration: 4-5 seconds
+
+Data:
+  - North America: 51% ($3,346M) [BLUE #00d4ff]
+  - Europe: 29% ($1,917M) [PURPLE #a855f7]
+  - Japan: 10% ($688M) [PINK #ff2d92]
+  - Other: 10% ($651M) [GRAY #6b7280]
+
+Key Insight:
+  - North America = HALF of all sales
+  - Target NA market for maximum reach
+  - Japan is important but smaller (10%)
+
+Animation:
+  - Donut spins in
+  - NA segment is emphasized/exploded
+
+Transition to next: Flip X
+
+
+================================================================================
+SLIDE 8: JAPAN VS NORTH AMERICA
+================================================================================
+Type: GROUPED BAR CHART / COMPARISON
+R Chart Reference: r_06_japan_vs_usa.png
+Duration: 5-6 seconds
+
+Data - North America Top Genres:
+  1. Shooter - $XXM
+  2. Sports - $XXM
+  3. Action - $XXM
+  4. Misc - $XXM
+  5. Racing - $XXM
+
+Data - Japan Top Genres:
+  1. Role-Playing - $XXM
+  2. Action - $XXM
+  3. Sports - $XXM
+  4. Platform - $XXM
+  5. Fighting - $XXM
+
+Key Insight:
+  - NA loves SHOOTERS - Japan loves RPGs
+  - Cultural difference affects game design
+  - Action is universal (#2 in both)
+
+Visual Design:
+  - Side-by-side comparison
+  - USA flag (🇺🇸) vs Japan flag (🇯🇵)
+
+Animation:
+  - Left side slides in from left
+  - Right side slides in from right
+  - VS badge appears in center
+
+Transition to next: Slide Left
+
+
+================================================================================
+SLIDE 9: TOP 10 PUBLISHERS
+================================================================================
+Type: HORIZONTAL BAR CHART
+R Chart Reference: r_07_publishers.png
+Duration: 4-5 seconds
+
+Data:
+  1. Electronic Arts - $XXM [BLUE]
+  2. Activision - $XXM [PURPLE]
+  3. Ubisoft - $XXM [ORANGE]
+  4. Take-Two - $XXM [GREEN]
+  5. Sony - $XXM [BLUE]
+  6. Nintendo - $XXM [RED]
+  7. THQ - $XXM [PINK]
+  8. Sega - $XXM [BLUE]
+  9. Konami - $XXM [ORANGE]
+  10. Square Enix - $XXM [PURPLE]
+
+Key Insight:
+  - EA is the publishing GIANT
+  - Western publishers dominate
+  - Partnership with top publishers = distribution
+
+Animation:
+  - Bars slide in from left with stagger
+
+Transition to next: Pan Down
+
+
+================================================================================
+SLIDE 10: TOP FRANCHISES
+================================================================================
+Type: HORIZONTAL BAR CHART
+R Chart Reference: (from Python 07_franchises.png)
+Duration: 4-5 seconds
+
+Data:
+  1. Call of Duty - $303M [GOLD #ffd700]
+  2. FIFA - $212M [GREEN #00ff88]
+  3. LEGO Games - $156M [ORANGE]
+  4. Grand Theft Auto - $155M [ORANGE]
+  5. Madden NFL - $130M [BLUE]
+  6. Assassin's Creed - $107M [PINK]
+  7. Need for Speed - $105M [ORANGE]
+  8. The Sims - $86M [GREEN]
+
+Key Insight:
+  - Call of Duty = KING of franchises
+  - Building a franchise = recurring revenue
+  - Annual releases (CoD, FIFA) = sustained income
+
+Animation:
+  - Bars grow with emphasis on #1
+  - Crown animation on Call of Duty
+
+Transition to next: Zoom Out to Morph
+
+
+================================================================================
+SLIDE 11: SALES OVER TIME (TIMELINE)
+================================================================================
+Type: AREA/LINE CHART
+R Chart Reference: (from Python 08_sales_timeline.png)
+Duration: 5-6 seconds
+
+Data:
+  - X-axis: Years (1990 - 2023)
+  - Y-axis: Total Sales (Millions USD)
+  - Peak around 2008-2010
+
+Key Insight:
+  - Gaming peaked around 2008-2010
+  - Recent decline (could be data lag or market shift)
+  - PS2/X360 era was the golden age
+
+Animation:
+  - Line draws from left to right
+  - Peak year highlighted with pulse
+  - Area fills in gradually
+
+Transition to next: Zoom In
+
+
+================================================================================
+SLIDE 12: THE VERDICT - DATA-DRIVEN DECISION
+================================================================================
+Type: SUMMARY INFOGRAPHIC / TEXT
+Duration: 6-8 seconds
+
+Content - The Perfect Game Formula:
+  
+  ┌─────────────────────────────────────────────────────────────┐
+  │                     THE WINNING FORMULA                      │
+  ├─────────────────────────────────────────────────────────────┤
+  │                                                              │
+  │   GENRE:      Action or Shooter (32% of market)             │
+  │                                                              │
+  │   PLATFORM:   PlayStation (50.6% market share)              │
+  │                                                              │
+  │   REGION:     Target North America (51% of sales)           │
+  │                                                              │
+  │   STRATEGY:   Build a Franchise (CoD = $303M recurring)     │
+  │                                                              │
+  │   PUBLISHER:  Partner with EA/Activision                     │
+  │                                                              │
+  └─────────────────────────────────────────────────────────────┘
+
+Visual:
+  - Each recommendation appears as a card
+  - Icons for each category
+  - Data support shown below each
+
+Animation:
+  - Cards flip in one by one
+  - Final "checkmark" animation when complete
+
+Transition to next: Fade
+
+
+================================================================================
+SLIDE 13: THANK YOU / END
+================================================================================
+Type: Text Only
+Duration: 3-4 seconds
+
+Content:
+  - "Data Tells the Story"
+  - Credits / Source: VGChartz 2024 Dataset
+  - Built with: R, TypeScript, GSAP, Chart.js
+
+Animation:
+  - Fade in with elegant timing
+
+
+================================================================================
+PRESENTATION SUMMARY
+================================================================================
+
+Total Slides: 13
+Total Charts: 9 (excluding title/text slides)
+
+Chart Types Used:
+  - Horizontal Bar Charts: 5 (Top Games, Consoles, Publishers, Franchises, Japan-only)
+  - Vertical Bar Charts: 1 (Genres)
+  - Donut/Pie Charts: 2 (Console Wars, Regional)
+  - Area/Line Chart: 1 (Timeline)
+  - Grouped Bar: 1 (Japan vs USA)
+  - Infographic: 1 (Final verdict)
+
+Color Palette (PURE BLACK & WHITE MINIMALIST):
+  - Background: #000000 (Pure Black)
+  - Primary Text: #ffffff (Pure White)
+  - Secondary Text: #888888 (Light Grey)
+  - Muted Text: #333333 (Dark Grey)
+  - Bar Gradient: #333333 → #888888 → #ffffff (Dark to Light)
+  - Shimmer: rgba(255, 255, 255, 0.2)
+  - Ambient Glow: rgba(255, 255, 255, 0.02)
+
+Typography:
+  - Font: 'Inter' (clean, modern sans-serif)
+  - Headings: Uppercase, bold (900 weight), letter-spacing: 0.15em
+  - Labels: Uppercase, medium (500-600 weight), letter-spacing: 0.3em
+  - Values: Extra large (3.5rem), bold, white
+
+Design Principles:
+  - NO colors except black, white, and grey gradients
+  - Large typography with lots of whitespace
+  - Bars have gradient from dark grey to white
+  - Shimmer animation on bars
+  - Staggered entrance animations
+  - Minimal, elegant, Apple-style aesthetic
+
+Animation Style:
+  - GSAP-powered smooth transitions
+  - Each slide has unique entrance/exit
+  - Charts animate data points sequentially
+  - Staggered reveals for emphasis
+
+Navigation:
+  - Press SPACE or → to advance
+  - Press ← to go back
+  - Click anywhere to advance
+  - NO visible UI controls
+
+================================================================================
+END OF SCRIPT
+================================================================================
