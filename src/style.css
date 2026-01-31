@@ -1,0 +1,568 @@
+/* ============================================
+   CINEMATIC PRESENTATION STYLES
+   3Blue1Brown Inspired - Unique Transitions
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Pure Dark */
+  --bg: #000000;
+  --bg-subtle: #0a0a0a;
+  
+  /* Text */
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.3);
+  
+  /* Accents */
+  --gold: #ffd700;
+  --blue: #00d4ff;
+  --purple: #a855f7;
+  --pink: #ff2d92;
+  --green: #00ff88;
+  --orange: #ff6b00;
+  
+  /* Font */
+  --font: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* ============================================
+   LOCKED ASPECT RATIO CONTAINER
+   ============================================ */
+#app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+.presentation-frame {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  background: var(--bg);
+  transform-origin: center center;
+  overflow: hidden;
+}
+
+/* Camera container for 3D movements */
+.camera {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+/* ============================================
+   SLIDE BASE
+   ============================================ */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 80px;
+  transform-style: preserve-3d;
+}
+
+/* ============================================
+   TITLE SLIDE
+   ============================================ */
+.title-slide {
+  text-align: center;
+}
+
+.title-badge {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: var(--gold);
+  margin-bottom: 50px;
+}
+
+.main-title {
+  font-size: 140px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 40px;
+}
+
+.main-title .line {
+  display: block;
+}
+
+.main-title .highlight {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 32px;
+  color: var(--text-dim);
+  font-weight: 400;
+  margin-bottom: 80px;
+}
+
+.title-stats {
+  display: flex;
+  gap: 100px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 64px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  display: block;
+  font-size: 16px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-top: 10px;
+}
+
+.press-hint {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.press-hint span {
+  color: var(--text-dim);
+}
+
+/* ============================================
+   CONTENT SLIDES
+   ============================================ */
+.slide-number {
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 4px;
+}
+
+.slide-title {
+  font-size: 90px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.slide-title .accent {
+  color: var(--gold);
+}
+
+/* ============================================
+   CHART CONTAINERS
+   ============================================ */
+.chart-container {
+  width: 100%;
+  max-width: 1400px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.chart-glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
+  padding: 50px;
+  box-shadow: 
+    0 40px 80px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   INSIGHT BOX
+   ============================================ */
+.insight-box {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.insight-text {
+  font-size: 28px;
+  color: var(--text-dim);
+}
+
+.insight-text strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ============================================
+   BIG REVEAL
+   ============================================ */
+.big-text {
+  font-size: 200px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.big-text.gradient {
+  background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   BAR CHART
+   ============================================ */
+.bar-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bar-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.bar-label {
+  flex: 0 0 280px;
+  text-align: right;
+  font-size: 18px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  flex: 1;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transform-origin: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================
+   DONUT CHART
+   ============================================ */
+.donut-layout {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.donut-wrapper {
+  width: 450px;
+  height: 450px;
+  position: relative;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.legend-color {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+}
+
+.legend-text {
+  font-size: 22px;
+  color: var(--text-dim);
+}
+
+.legend-value {
+  font-weight: 600;
+  color: var(--text);
+  margin-left: auto;
+  font-size: 22px;
+}
+
+/* ============================================
+   WINNER CARD
+   ============================================ */
+.winner-card {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 107, 0, 0.1));
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 40px;
+  padding: 60px 100px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.winner-crown {
+  font-size: 70px;
+  margin-bottom: 15px;
+}
+
+.winner-name {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.winner-value {
+  font-size: 80px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.winner-label {
+  color: var(--text-dim);
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+/* ============================================
+   VS COMPARISON
+   ============================================ */
+.vs-container {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.vs-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
+  padding: 60px;
+  text-align: center;
+  min-width: 400px;
+}
+
+.vs-card .flag {
+  font-size: 80px;
+  margin-bottom: 25px;
+}
+
+.vs-card h3 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.vs-card .pref-list {
+  list-style: none;
+}
+
+.vs-card .pref-list li {
+  padding: 18px 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  margin-bottom: 14px;
+  font-size: 22px;
+  color: var(--text-dim);
+}
+
+.vs-card .pref-list li:first-child {
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.vs-badge {
+  font-size: 60px;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+/* ============================================
+   DECISION
+   ============================================ */
+.decision-container {
+  max-width: 1200px;
+  text-align: center;
+}
+
+.decision-label {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: var(--blue);
+  margin-bottom: 40px;
+}
+
+.decision-text {
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.decision-text .highlight {
+  color: var(--text);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.evidence-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.evidence-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 35px 50px;
+  text-align: center;
+}
+
+.evidence-area {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.evidence-choice {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.evidence-why {
+  display: block;
+  font-size: 18px;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   THANK YOU
+   ============================================ */
+.thanks-icon {
+  font-size: 120px;
+  margin-bottom: 40px;
+}
+
+.thanks-title {
+  font-size: 180px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 30px;
+}
+
+.thanks-subtitle {
+  font-size: 36px;
+  color: var(--text-dim);
+}
+
+.credits {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+/* ============================================
+   AUDIENCE SLIDE
+   ============================================ */
+.audience-hero {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(168, 85, 247, 0.08));
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 40px;
+  padding: 60px 100px;
+  text-align: center;
+}
+
+.audience-icon {
+  font-size: 90px;
+  margin-bottom: 25px;
+}
+
+.audience-hero h3 {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.audience-hero p {
+  font-size: 26px;
+  color: var(--text-dim);
+}
