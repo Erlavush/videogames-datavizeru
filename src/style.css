@@ -674,7 +674,7 @@ body {
   /* SLIDE 5 & 6: DONUTS */
   .donut-area { 
     flex-direction: column; 
-    gap: 20px; 
+    gap: 30px; /* Increased gap to prevent overlap */
     height: auto;
     width: 100%;
     align-items: center;
@@ -684,6 +684,7 @@ body {
     width: 250px;
     height: 250px;
     margin: 0 auto;
+    position: relative; /* Ensure containment */
   }
   
   .donut-legend {
@@ -695,8 +696,8 @@ body {
   /* Improve Legend Alignment */
   .legend-row {
     display: grid;
-    /* Fixed widths for numbers to align vertically and prevent overlap */
-    grid-template-columns: 15px 1fr 70px 45px; 
+    /* Fixed widths */
+    grid-template-columns: 15px 1fr 70px 50px; 
     gap: 8px;
     align-items: center;
     margin-bottom: 12px;
@@ -710,14 +711,13 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* Ensure it doesn't push grid */
     min-width: 0;
   }
   
   .legend-sales, .legend-pct {
     font-size: 0.9rem;
     font-weight: 700;
-    text-align: right; /* Right align numbers */
+    text-align: center; /* Centered as requested */
   }
 
   /* SLIDE 8: WINNING FORMULA */

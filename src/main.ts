@@ -788,8 +788,8 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
   }
   
   // Set canvas size explicitly
-  canvas.width = 320;
-  canvas.height = 320;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
   
   const ctx = canvas.getContext('2d')!;
   
@@ -811,8 +811,8 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
       }]
     },
     options: { 
-      responsive: false, 
-      maintainAspectRatio: true,
+      responsive: true, 
+      maintainAspectRatio: false, /* Allow CSS to control aspect ratio */
       cutout: '65%', 
       plugins: { 
         tooltip: { enabled: false },
