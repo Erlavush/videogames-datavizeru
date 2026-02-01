@@ -313,6 +313,26 @@ function resetGenericSlides() {
     if (el) el.innerHTML = '';
   });
 }
+// Helper to fade in standard elements for charts
+function animateStandardSlideEntrance(slideId: string) {
+  const slide = document.getElementById(slideId);
+  if (!slide) return;
+  
+  const container = slide.querySelector('.chart-slide') as HTMLElement;
+  if (container) {
+    container.classList.remove('hidden');
+    container.style.visibility = 'visible';
+    container.style.opacity = '1';
+  }
+
+  const header = slide.querySelector('.slide-header');
+  if (header) {
+    gsap.fromTo(header, 
+      { opacity: 0, y: -20 }, 
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+    );
+  }
+}
 
 // Exit animations for slides
 function animateExit(n: number): Promise<void> {
@@ -321,6 +341,12 @@ function animateExit(n: number): Promise<void> {
     if (!slide) { resolve(); return; }
 
     const md = { duration: 0.5, ease: 'power2.in' };
+
+    // Generic Exit for Headers/Insights (run in parallel)
+    const header = slide.querySelector('.slide-header');
+    const insight = slide.querySelector('.slide-insight');
+    if (header) gsap.to(header, { opacity: 0, y: -10, duration: 0.3 });
+    if (insight) gsap.to(insight, { opacity: 0, y: 10, duration: 0.3 });
     
     // Slide 3: Genre (Bar Chart)
     if (n === 3) {
@@ -369,12 +395,12 @@ function animateExit(n: number): Promise<void> {
     if (n === 8) {
       const cards = slide.querySelectorAll('.winning-card');
       const footer = slide.querySelector('.winning-footer');
-      const header = slide.querySelector('.winning-header');
+      const header8 = slide.querySelector('.winning-header'); // Specific header
       if (cards.length > 0) {
         const tl = gsap.timeline({ onComplete: resolve });
         tl.to(footer, { opacity: 0, y: 10, duration: 0.3 })
           .to(cards, { opacity: 0, y: 20, stagger: 0.1, duration: 0.4 }, '-=0.2')
-          .to(header, { opacity: 0, y: -10, duration: 0.3 }, '-=0.3');
+          .to(header8, { opacity: 0, y: -10, duration: 0.3 }, '-=0.3');
         return;
       }
     }
@@ -712,11 +738,8 @@ function resetSlide3() {
 
 // SLIDE 4: Top Games
 function animateTopGames() {
-  const slide = document.getElementById('slide-4')!;
-  slide.querySelector('.chart-slide')!.classList.remove('hidden');
-  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
-  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-
+  animateStandardSlideEntrance('slide-4'); // Faded entrance
+  
   (document.getElementById('games-chart') as HTMLElement).classList.remove('hidden');
   (document.getElementById('games-chart') as HTMLElement).style.visibility = 'visible';
   (document.getElementById('games-chart') as HTMLElement).style.opacity = '1';
@@ -745,11 +768,9 @@ function animateTopGames() {
 
 // SLIDE 5: Console Wars
 function animateConsoles() {
+  animateStandardSlideEntrance('slide-5'); // Faded entrance
+  
   const slide = document.getElementById('slide-5')!;
-  slide.querySelector('.chart-slide')!.classList.remove('hidden');
-  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
-  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-
   const area = slide.querySelector('.donut-area') as HTMLElement;
   area.classList.remove('hidden');
   area.style.visibility = 'visible';
@@ -765,11 +786,9 @@ function animateConsoles() {
 
 // SLIDE 6: Regional Sales
 function animateRegional() {
+  animateStandardSlideEntrance('slide-6'); // Faded entrance
+  
   const slide = document.getElementById('slide-6')!;
-  slide.querySelector('.chart-slide')!.classList.remove('hidden');
-  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
-  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-
   const area = slide.querySelector('.donut-area') as HTMLElement;
   area.classList.remove('hidden');
   area.style.visibility = 'visible';
@@ -785,10 +804,7 @@ function animateRegional() {
 
 // SLIDE 7: Top Franchises
 function animateFranchises() {
-  const slide = document.getElementById('slide-7')!;
-  slide.querySelector('.chart-slide')!.classList.remove('hidden');
-  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
-  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
+  animateStandardSlideEntrance('slide-7'); // Faded entrance
 
   (document.getElementById('franchise-chart') as HTMLElement).classList.remove('hidden');
   (document.getElementById('franchise-chart') as HTMLElement).style.visibility = 'visible';
