@@ -12,9 +12,35 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 
 console.log("🚀 Loaded: Mobile Layout v2.0 (Grid Fixed)");
 app.innerHTML = `
-  <!-- SLIDE 1: BLANK INTRO -->
+  <!-- SLIDE 1: GAME BOY INTRO -->
   <div class="slide slide-white active" id="slide-1">
-    <div class="blank-intro"></div>
+    <div class="blank-intro">
+      <div class="gb-handheld">
+        <div class="gb-screen-frame">
+          <div class="gb-screen">
+            <div class="tetris-container" id="tetris-area"></div>
+            <div class="gb-logo-container" id="gb-logo">
+              <span class="gb-logo-nintendo">Video Games</span>
+              <div class="gb-logo-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="gb-controls">
+          <div class="gb-dpad">
+            <div class="dpad-h"></div>
+            <div class="dpad-v"></div>
+          </div>
+          <div class="gb-buttons">
+            <div class="gb-btn"></div>
+            <div class="gb-btn"></div>
+          </div>
+          <div class="gb-start-select">
+            <div class="gb-pill"></div>
+            <div class="gb-pill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- SLIDE 2: TITLE with Typewriter -->
@@ -228,16 +254,16 @@ let isTransitioning = false;
 function cleanupAllSlides() {
   // Kill all GSAP animations
   gsap.killTweensOf('*');
-  
+
   // Clear all tracked timeouts
   clearAllTimeouts();
-  
+
   // Reset all slides
   slides.forEach((slide, index) => {
     const el = slide as HTMLElement;
     el.style.zIndex = '';
     el.style.opacity = '';
-    
+
     // Hide all internal content immediately
     const content = el.querySelectorAll('.title-content, .chart-slide, .answer-layout, .winning-layout');
     content.forEach(c => {
@@ -250,11 +276,24 @@ function cleanupAllSlides() {
       el.classList.remove('active');
     }
   });
-  
+
   // Explicitly reset specific elements
+  resetSlide1();
   resetSlide2();
   resetSlide3();
   resetGenericSlides(); // Helper for slides 4-8
+}
+
+// Reset slide 1
+function resetSlide1() {
+  const logo = document.getElementById('gb-logo');
+  const tetris = document.getElementById('tetris-area');
+  if (logo) {
+    gsap.set(logo, { y: -100, opacity: 1 });
+  }
+  if (tetris) {
+    tetris.innerHTML = '';
+  }
 }
 
 // Reset generic chart elements for slides 4, 5, 6, 7, 8
@@ -266,7 +305,7 @@ function resetGenericSlides() {
     gsap.set(el, { clearProps: 'all' }); // Clear GSAP props
     (el as HTMLElement).classList.add('hidden');
   });
-  
+
   // Clear charts
   const containers = ['games-chart', 'console-donut', 'regional-donut', 'franchise-chart'];
   containers.forEach(id => {
@@ -278,20 +317,20 @@ function resetGenericSlides() {
 function goToSlide(n: number) {
   if (n < 1 || n > totalSlides || n === currentSlide) return;
   if (isTransitioning) return; // Prevent spam clicking
-  
+
   isTransitioning = true;
-  
+
   // Reset state before transition
   cleanupAllSlides();
-  
+
   const oldSlide = slides[currentSlide - 1] as HTMLElement;
   const newSlide = slides[n - 1] as HTMLElement;
-  
+
   // 1. Fade OUT old slide
   // Make sure old slide stays visible during fade out
   oldSlide.style.zIndex = '1';
   oldSlide.style.opacity = '1';
-  
+
   gsap.to(oldSlide, {
     opacity: 0,
     duration: 0.5,
@@ -299,12 +338,12 @@ function goToSlide(n: number) {
     onComplete: () => {
       oldSlide.classList.remove('active');
       oldSlide.style.zIndex = '';
-      
+
       // 2. Prepare new slide
       newSlide.classList.add('active');
       newSlide.style.opacity = '0'; // Start invisible
       newSlide.style.zIndex = '2';
-      
+
       // 3. Fade IN new slide
       gsap.to(newSlide, {
         opacity: 1,
@@ -317,7 +356,7 @@ function goToSlide(n: number) {
       });
     }
   });
-  
+
   currentSlide = n;
 }
 
@@ -340,7 +379,7 @@ document.addEventListener('touchend', e => {
 function handleSwipe() {
   const swipeThreshold = 50; // Minimum distance to count as swipe
   const diff = touchStartX - touchEndX;
-  
+
   if (Math.abs(diff) > swipeThreshold) {
     if (diff > 0) {
       // Swiped Left -> Next Slide
@@ -367,11 +406,11 @@ document.addEventListener('click', () => {
   // For simplicity: Tap is next. Swipe Right is back. Swipe Left is Next.
   // To avoid double triggers, we could prevent default on touch, but that blocks scrolling.
   // Since the app is fixed full screen, scrolling isn't an issue.
-  
+
   // Let's keep click for Desktop mouse users.
   // Mobile users might double trigger "next" if they "tap-swipe". 
   // But standard pure Swipe doesn't trigger click usually if recognized as gestures.
-  nextSlide(); 
+  nextSlide();
 });
 
 // ============================================
@@ -379,8 +418,8 @@ document.addEventListener('click', () => {
 // ============================================
 
 function animateSlide(n: number) {
-  switch(n) {
-    case 1: /* Blank slide - no animation */ break;
+  switch (n) {
+    case 1: animateGameBoy(); break;
     case 2: animateTitle(); break;
     case 3: animateGenres(); break;
     case 4: animateTopGames(); break;
@@ -395,23 +434,23 @@ function animateSlide(n: number) {
 function animateTitle() {
   // Reset elements first
   resetSlide2();
-  
+
   // Unhide the parent container explicitly
   const slide = document.getElementById('slide-2')!;
   const content = slide.querySelector('.title-content') as HTMLElement;
   content.classList.remove('hidden');
   content.style.opacity = '1';
   content.style.visibility = 'visible';
-  
+
   const subtitle = document.querySelector('.title-subtitle') as HTMLElement;
   const line1 = document.getElementById('title-line-1')!;
   const line2 = document.getElementById('title-line-2')!;
   const line3 = document.getElementById('title-line-3')!;
   const divider = document.querySelector('.title-divider') as HTMLElement;
   const stats = document.querySelector('.title-stats') as HTMLElement;
-  
+
   const lines = ['THE BILLION', 'DOLLAR', 'QUESTION'];
-  
+
   // Typewriter function
   function typeWriter(element: HTMLElement, text: string, callback?: () => void) {
     let i = 0;
@@ -419,7 +458,7 @@ function animateTitle() {
     element.classList.remove('hidden');
     element.style.opacity = '1';
     element.style.visibility = 'visible';
-    
+
     function type() {
       if (i < text.length) {
         element.textContent += text.charAt(i);
@@ -431,57 +470,57 @@ function animateTitle() {
     }
     type();
   }
-  
+
   // Show helper function
   const showElement = (el: HTMLElement, delay: number = 0) => {
     el.classList.remove('hidden');
     gsap.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, visibility: 'visible', duration: 0.5, delay: delay });
   };
-  
+
   // 1. Show subtitle first
   setTrackedTimeout(() => {
     showElement(subtitle);
-    
+
     // 2. Start typing title after subtitle appears
     setTrackedTimeout(() => {
       typeWriter(line1, lines[0], () => {
         typeWriter(line2, lines[1], () => {
           typeWriter(line3, lines[2], () => {
-             // 3. Show divider
-             showElement(divider);
-             
-             // 4. Show stats
-             setTrackedTimeout(() => {
-               showElement(stats);
-               
-               // Animate numbers with proper formatting
-               const statGames = document.getElementById('stat-games');
-               const statSales = document.getElementById('stat-sales');
-               
-               if (statGames) {
-                 const target = { val: 0 };
-                 gsap.to(target, { 
-                   val: 64016, 
-                   duration: 2, 
-                   ease: 'power2.out',
-                   onUpdate: () => {
-                     statGames.innerText = Math.floor(target.val).toLocaleString();
-                   }
-                 });
-               }
-               
-               if (statSales) {
-                 const target = { val: 0 };
-                 gsap.to(target, { 
-                   val: 6.6, 
-                   duration: 2, 
-                   ease: 'power2.out',
-                   onUpdate: () => {
-                     statSales.innerText = target.val.toFixed(1);
-                   }
-                 });
-               }
-             }, 400);
+            // 3. Show divider
+            showElement(divider);
+
+            // 4. Show stats
+            setTrackedTimeout(() => {
+              showElement(stats);
+
+              // Animate numbers with proper formatting
+              const statGames = document.getElementById('stat-games');
+              const statSales = document.getElementById('stat-sales');
+
+              if (statGames) {
+                const target = { val: 0 };
+                gsap.to(target, {
+                  val: 64016,
+                  duration: 2,
+                  ease: 'power2.out',
+                  onUpdate: () => {
+                    statGames.innerText = Math.floor(target.val).toLocaleString();
+                  }
+                });
+              }
+
+              if (statSales) {
+                const target = { val: 0 };
+                gsap.to(target, {
+                  val: 6.6,
+                  duration: 2,
+                  ease: 'power2.out',
+                  onUpdate: () => {
+                    statSales.innerText = target.val.toFixed(1);
+                  }
+                });
+              }
+            }, 400);
           });
         });
       });
@@ -497,14 +536,14 @@ function resetSlide2() {
   const line3 = document.getElementById('title-line-3')!;
   const divider = document.querySelector('.title-divider') as HTMLElement;
   const stats = document.querySelector('.title-stats') as HTMLElement;
-  
+
   if (subtitle) { subtitle.classList.add('hidden'); subtitle.style.opacity = '0'; }
   if (line1) { line1.textContent = ''; line1.classList.add('hidden'); }
   if (line2) { line2.textContent = ''; line2.classList.add('hidden'); }
   if (line3) { line3.textContent = ''; line3.classList.add('hidden'); }
   if (divider) { divider.classList.add('hidden'); divider.style.opacity = '0'; }
   if (stats) { stats.classList.add('hidden'); stats.style.opacity = '0'; }
-  
+
   // Reset stat counters
   const statGames = document.getElementById('stat-games');
   const statSales = document.getElementById('stat-sales');
@@ -516,20 +555,20 @@ function resetSlide2() {
 function animateGenres() {
   // Reset elements first
   resetSlide3();
-  
+
   // Unhide the parent container explicitly
   const slide = document.getElementById('slide-3')!;
   const content = slide.querySelector('.chart-slide') as HTMLElement;
   content.classList.remove('hidden');
   content.style.opacity = '1';
   content.style.visibility = 'visible';
-  
+
   const headerLeft = document.querySelector('#slide-3 .header-left') as HTMLElement;
   const title1 = document.getElementById('genre-title-1')!;
   const title2 = document.getElementById('genre-title-2')!;
   const chartArea = document.getElementById('genre-chart') as HTMLElement;
   const insight = document.getElementById('genre-insight') as HTMLElement;
-  
+
   // Typewriter helper
   function typeText(element: HTMLElement, text: string, callback?: () => void) {
     let i = 0;
@@ -545,13 +584,13 @@ function animateGenres() {
     }
     type();
   }
-  
+
   // SEQUENCE
   setTrackedTimeout(() => {
     // 1. Show header
     headerLeft.classList.remove('hidden');
     gsap.fromTo(headerLeft, { opacity: 0, x: -20 }, { opacity: 1, x: 0, visibility: 'visible', duration: 0.4 });
-    
+
     // 2. Typewrite title
     setTrackedTimeout(() => {
       typeText(title1, 'GENRE', () => {
@@ -560,7 +599,7 @@ function animateGenres() {
           chartArea.classList.remove('hidden');
           chartArea.style.visibility = 'visible';
           chartArea.style.opacity = '1';
-          
+
           buildBarChart('genre-chart', [
             { name: 'SPORTS', value: 1188 },
             { name: 'ACTION', value: 1126 },
@@ -571,7 +610,7 @@ function animateGenres() {
             { name: 'PLATFORM', value: 349 },
             { name: 'FIGHTING', value: 341 },
           ], 'white');
-          
+
           // 4. Show insight
           setTrackedTimeout(() => {
             insight.classList.remove('hidden');
@@ -590,7 +629,7 @@ function resetSlide3() {
   const title2 = document.getElementById('genre-title-2')!;
   const chartArea = document.getElementById('genre-chart') as HTMLElement;
   const insight = document.getElementById('genre-insight') as HTMLElement;
-  
+
   if (headerLeft) { headerLeft.classList.add('hidden'); headerLeft.style.opacity = '0'; }
   if (title1) title1.textContent = '';
   if (title2) title2.textContent = '';
@@ -604,7 +643,7 @@ function animateTopGames() {
   slide.querySelector('.chart-slide')!.classList.remove('hidden');
   (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
   (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-  
+
   (document.getElementById('games-chart') as HTMLElement).classList.remove('hidden');
   (document.getElementById('games-chart') as HTMLElement).style.visibility = 'visible';
   (document.getElementById('games-chart') as HTMLElement).style.opacity = '1';
@@ -621,7 +660,7 @@ function animateTopGames() {
     { name: 'COD: BO2 (X360)', value: 13.9 },
     { name: 'COD: BO2 (PS3)', value: 13.8 },
   ], 'black');
-  
+
   // Show insight after bars animate
   const insight = document.querySelector('#slide-4 .slide-insight') as HTMLElement;
   if (insight) {
@@ -637,7 +676,7 @@ function animateConsoles() {
   slide.querySelector('.chart-slide')!.classList.remove('hidden');
   (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
   (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-  
+
   const area = slide.querySelector('.donut-area') as HTMLElement;
   area.classList.remove('hidden');
   area.style.visibility = 'visible';
@@ -657,7 +696,7 @@ function animateRegional() {
   slide.querySelector('.chart-slide')!.classList.remove('hidden');
   (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
   (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-  
+
   const area = slide.querySelector('.donut-area') as HTMLElement;
   area.classList.remove('hidden');
   area.style.visibility = 'visible';
@@ -677,7 +716,7 @@ function animateFranchises() {
   slide.querySelector('.chart-slide')!.classList.remove('hidden');
   (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
   (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
-  
+
   (document.getElementById('franchise-chart') as HTMLElement).classList.remove('hidden');
   (document.getElementById('franchise-chart') as HTMLElement).style.visibility = 'visible';
   (document.getElementById('franchise-chart') as HTMLElement).style.opacity = '1';
@@ -689,7 +728,7 @@ function animateFranchises() {
     { name: 'GRAND THEFT AUTO', value: 155 },
     { name: 'MADDEN NFL', value: 130 },
   ], 'white');
-  
+
   // Show insight after bars animate
   const insight = document.querySelector('#slide-7 .slide-insight') as HTMLElement;
   if (insight) {
@@ -704,12 +743,12 @@ function animateFranchises() {
 function animateAnswer() {
   const slide = document.getElementById('slide-8')!;
   const layout = slide.querySelector('.winning-layout') as HTMLElement;
-  
+
   // Unhide main container
   layout.classList.remove('hidden');
   layout.style.visibility = 'visible';
   layout.style.opacity = '1';
-  
+
   // Elements to animate
   const eyebrow = slide.querySelector('.winning-eyebrow') as HTMLElement;
   const title = slide.querySelector('.winning-title') as HTMLElement;
@@ -733,12 +772,12 @@ function animateAnswer() {
 
   tl.from(eyebrow, { opacity: 0, y: -20, duration: 0.5, ease: 'power2.out' })
     .from(title, { opacity: 0, y: 20, duration: 0.7, ease: 'power3.out' }, '-=0.3')
-    .from(cards, { 
-      opacity: 0, 
-      y: 50, 
-      duration: 0.6, 
-      stagger: 0.2, 
-      ease: 'back.out(1.2)' 
+    .from(cards, {
+      opacity: 0,
+      y: 50,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: 'back.out(1.2)'
     }, '-=0.2')
     .from(footer, { opacity: 0, duration: 1 }, '-=0.1');
 }
@@ -747,21 +786,21 @@ function animateAnswer() {
 // CHART BUILDERS
 // ============================================
 
-function buildBarChart(containerId: string, data: {name: string, value: number}[], theme: 'black' | 'white') {
+function buildBarChart(containerId: string, data: { name: string, value: number }[], theme: 'black' | 'white') {
   const container = document.getElementById(containerId)!;
   container.innerHTML = '';
-  
+
   const maxValue = Math.max(...data.map(d => d.value));
   const isBlackTheme = theme === 'black';
   const unit = data[0].value > 100 ? 'M' : 'M';
-  
+
   data.forEach((item, i) => {
     const row = document.createElement('div');
     row.className = 'bar-row';
-    
+
     const width = (item.value / maxValue) * 100;
     const barClass = isBlackTheme ? 'gradient-bar' : 'black-bar';
-    
+
     row.innerHTML = `
       <div class="bar-label ${isBlackTheme ? '' : 'dark'}">${item.name}</div>
       <div class="bar-track ${isBlackTheme ? '' : 'light'}">
@@ -769,71 +808,71 @@ function buildBarChart(containerId: string, data: {name: string, value: number}[
       </div>
       <div class="bar-value ${isBlackTheme ? '' : 'dark'}">$${item.value}${unit}</div>
     `;
-    
+
     container.appendChild(row);
-    
+
     gsap.to(row.querySelector('.bar-fill'), { width: width + '%', duration: 1, delay: 0.2 + i * 0.1, ease: 'power3.out' });
     gsap.from(row.querySelector('.bar-value'), { opacity: 0, x: -20, duration: 0.4, delay: 0.6 + i * 0.1 });
   });
 }
 
-function buildDonutChart(canvasId: string, legendId: string, data: {label: string, value: number, sales: string}[], theme: 'black' | 'white') {
+function buildDonutChart(canvasId: string, legendId: string, data: { label: string, value: number, sales: string }[], theme: 'black' | 'white') {
   const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
   if (!canvas) return;
-  
+
   // Destroy existing chart if any
   const existingChart = Chart.getChart(canvas);
   if (existingChart) {
     existingChart.destroy();
   }
-  
+
   // Set canvas size explicitly
   canvas.style.width = '100%';
   canvas.style.height = '100%';
-  
+
   const ctx = canvas.getContext('2d')!;
-  
+
   const isBlack = theme === 'black';
-  const colors = isBlack 
+  const colors = isBlack
     ? ['#ffffff', '#aaaaaa', '#666666', '#333333']
     : ['#000000', '#444444', '#888888', '#cccccc'];
   const borderColor = isBlack ? '#000000' : '#ffffff';
-  
+
   new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: data.map(d => d.label),
-      datasets: [{ 
-        data: data.map(d => d.value), 
-        backgroundColor: colors, 
-        borderColor: borderColor, 
-        borderWidth: 3 
+      datasets: [{
+        data: data.map(d => d.value),
+        backgroundColor: colors,
+        borderColor: borderColor,
+        borderWidth: 3
       }]
     },
-    options: { 
+    options: {
       layout: { padding: 0 }, /* ZERO padding to max out size */
-      responsive: true, 
-      maintainAspectRatio: false, 
-      cutout: '65%', 
-      plugins: { 
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
         tooltip: { enabled: false },
         legend: { display: false }
-      }, 
-      animation: { 
-        animateRotate: true, 
-        duration: 1200 
-      } 
+      },
+      animation: {
+        animateRotate: true,
+        duration: 1200
+      }
     }
   });
 
   // Animate the canvas entrance itself to avoid "missing animation" feel
   gsap.from(canvas, { opacity: 0, scale: 0.8, duration: 0.5, ease: 'back.out(1.2)' });
-  
+
   // Build legend
   const legend = document.getElementById(legendId)!;
   if (legend) {
     legend.innerHTML = '';
-    
+
     data.forEach((item, i) => {
       const row = document.createElement('div');
       row.className = `legend-row ${isBlack ? '' : 'dark'}`;
@@ -847,7 +886,7 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
       gsap.from(row, { opacity: 0, x: 30, duration: 0.4, delay: 0.8 + i * 0.12 });
     });
   }
-  
+
   // Animate center (slide 5 is Console Wars white, slide 6 is Regional black)
   const centerEl = document.querySelector(`#slide-${theme === 'white' ? '5' : '6'} .donut-center`);
   if (centerEl) {
@@ -858,4 +897,120 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
 // ============================================
 // INIT
 // ============================================
-// Slide 1 is blank, no animation needed on start
+
+// SLIDE 1: Game Boy Startup Animation
+function animateGameBoy() {
+  const logo = document.getElementById('gb-logo');
+  const tetrisArea = document.getElementById('tetris-area');
+  if (!logo || !tetrisArea) return;
+
+  // Reset
+  tetrisArea.innerHTML = '';
+  // Initial state: Logo hidden and at center y-position relative to container
+  gsap.set(logo, {
+    y: 0,
+    opacity: 0,
+    scale: 0.8,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    xPercent: -50,
+    yPercent: -50,
+    margin: 0
+  });
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      setTrackedTimeout(() => {
+        if (currentSlide === 1) nextSlide();
+      }, 1500);
+    }
+  });
+
+  // Tetris Block Definitions
+  const shapes = {
+    I: [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    O: [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    T: [[0, 1, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    L: [[1, 0, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    Z: [[1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  };
+
+  function createBlock(type: keyof typeof shapes) {
+    const block = document.createElement('div');
+    block.className = 'tetris-block';
+    shapes[type].forEach(row => {
+      row.forEach(cell => {
+        const div = document.createElement('div');
+        div.className = cell ? 'tetris-cell' : 'tetris-cell cell-hidden';
+        block.appendChild(div);
+      });
+    });
+    return block;
+  }
+
+  // Define stacking sequence
+  const sequence = [
+    { type: 'I', x: 20, y: 155, delay: 0 },
+    { type: 'O', x: 120, y: 155, delay: 0.2 },
+    { type: 'T', x: 70, y: 140, delay: 0.2 },
+    { type: 'L', x: 160, y: 140, delay: 0.2 },
+    { type: 'Z', x: 40, y: 110, delay: 0.2 },
+    { type: 'I', x: 140, y: 110, delay: 0.2 },
+    { type: 'O', x: 80, y: 80, delay: 0.2 },
+    { type: 'T', x: 20, y: 80, delay: 0.2 },
+    { type: 'L', x: 150, y: 50, delay: 0.2 },
+    { type: 'Z', x: 70, y: 50, delay: 0.2 },
+    { type: 'O', x: 10, y: 50, delay: 0.2 },
+    { type: 'I', x: 90, y: 20, delay: 0.2 },
+    { type: 'T', x: 40, y: 20, delay: 0.2 }
+  ];
+
+  const allBlocks: HTMLElement[] = [];
+
+  sequence.forEach((item, _index) => {
+    const block = createBlock(item.type as keyof typeof shapes);
+    allBlocks.push(block);
+
+    tl.add(() => {
+      tetrisArea.appendChild(block);
+      gsap.set(block, { x: item.x, y: -50 });
+    });
+
+    tl.to(block, {
+      y: item.y,
+      duration: 0.4,
+      ease: "power1.in"
+    }, `+=${item.delay}`);
+  });
+
+  // 1. "Game Over" feel - everything drops down
+  tl.to(allBlocks, {
+    y: "+=300",
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.05,
+    ease: "power2.in",
+    delay: 0.5
+  });
+
+  // 2. Reveal Logo at center
+  tl.to(logo, {
+    opacity: 1,
+    scale: 1,
+    duration: 1,
+    ease: "back.out(1.7)"
+  }, "-=0.2");
+
+  // 3. Optional Logo wiggle/pop
+  tl.to(logo, {
+    scale: 1.1,
+    duration: 0.1,
+    repeat: 1,
+    yoyo: true,
+    ease: "power1.inOut"
+  });
+}
+
+// Kick off first slide animation
+animateGameBoy();
