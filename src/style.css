@@ -452,15 +452,152 @@ body {
 
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE (MOBILE & TABLET)
    ============================================ */
 
-@media (max-width: 1200px) {
-  .title-main { font-size: 3rem; }
-  .slide-title-alt { font-size: 2rem; }
-  .answer-cards { flex-direction: column; }
-  .donut-area { flex-direction: column; gap: 30px; }
-  .bar-row { grid-template-columns: 120px 1fr 80px; }
+@media (max-width: 768px) {
+  /* GLOBAL SLIDE TWEAKS */
+  .slide {
+    padding: 20px;
+    align-items: flex-start; /* prevent centering issues on tall content */
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+  }
+
+  .slide-header {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-left {
+    margin-bottom: 10px;
+  }
+
+  .title-main { font-size: 2.5rem; }
+  .title-subtitle { font-size: 1rem; }
+  .slide-title-alt { font-size: 2.2rem; }
+  
+  /* SLIDE 2: TITLE */
+  .title-content {
+    width: 100%;
+    margin-top: 10%;
+  }
+  .title-divider { width: 60px; margin: 30px 0; }
+  .title-stats { 
+    flex-direction: row; 
+    gap: 20px; 
+    justify-content: flex-start;
+  }
+  .stat-value { font-size: 2rem; }
+  .stat-label { font-size: 0.7rem; }
+
+  /* CHARTS GENERAL */
+  .chart-slide {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding-top: 60px; /* Space for header */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chart-area {
+    height: 40vh; /* confine charts on mobile */
+    margin-bottom: 20px;
+  }
+
+  /* SLIDE 5 & 6: DONUTS */
+  .donut-area { 
+    flex-direction: column; 
+    gap: 30px; 
+    height: auto;
+    align-items: center;
+  }
+  
+  .donut-wrap {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+  }
+  
+  .donut-legend {
+    width: 100%;
+    padding-left: 0;
+  }
+  
+  .legend-item {
+    font-size: 0.9rem;
+  }
+  
+  .donut-center .donut-pct { font-size: 3rem; }
+  .donut-center .donut-lbl { font-size: 0.8rem; }
+
+  /* SLIDE 8: WINNING FORMULA */
+  .winning-layout {
+    padding: 20px;
+    justify-content: flex-start;
+    padding-top: 60px;
+    overflow-y: auto;
+  }
+
+  .winning-header { margin-bottom: 30px; }
+  .winning-title { font-size: 2.8rem; }
+  .winning-eyebrow { font-size: 0.7rem; }
+
+  .winning-grid {
+    grid-template-columns: 1fr; /* Stack vertically */
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .winning-card {
+    padding: 25px;
+    flex-direction: row; /* Horizontal cards on mobile looks nice? Or vertical stack. Let's do row for compact. */
+    justify-content: space-between;
+    text-align: left;
+    align-items: center;
+  }
+  
+  .winning-card {
+    /* If row layout for card: */
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .winning-number {
+    font-size: 3.5rem;
+    margin-bottom: 0;
+    min-width: 90px;
+  }
+  
+  .winning-number span { font-size: 1.5rem; }
+  
+  .winning-label-group { 
+    margin-bottom: 0; 
+    flex: 1;
+  }
+  
+  .winning-label-main { 
+    font-size: 1.2rem; 
+    br { display: none; } /* Unwrap text */
+  }
+  
+  .winning-footer-label {
+    display: none; /* Hide extra label to save space, or keep smoothly */
+  }
+
+  .winning-footer {
+    padding-bottom: 40px;
+  }
+  
+  .winning-quote { font-size: 1.1rem; }
+  
+  .winning-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .winning-dot { display: none; }
 }
 
 /* ============================================
