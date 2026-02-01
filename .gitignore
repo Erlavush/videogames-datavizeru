@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Chart images (generated locally)
+styled_charts/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Old files
+STORY_SCRIPT.txt
+TASK_SUMMARY.txt
+generate_charts.py
+generate_styled_charts.py
+run_r.bat
