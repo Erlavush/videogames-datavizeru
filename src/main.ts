@@ -782,6 +782,7 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
   if (!canvas) return;
   
   // Destroy existing chart if any
+  // Destroy existing chart if any
   const existingChart = Chart.getChart(canvas);
   if (existingChart) {
     existingChart.destroy();
@@ -798,6 +799,40 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
     ? ['#ffffff', '#aaaaaa', '#666666', '#333333']
     : ['#000000', '#444444', '#888888', '#cccccc'];
   const borderColor = isBlack ? '#000000' : '#ffffff';
+
+  // Custom Plugin to draw text in center
+  const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: function(chart: any) {
+      const width = chart.width,
+            height = chart.height,
+            ctx = chart.ctx;
+
+      ctx.restore();
+      
+      const fontSize = (height / 114).toFixed(2);
+      ctx.font = "bold " + fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = isBlack ? '#ffffff' : '#000000';
+
+      const text = data[0].value + "%",
+            textX = Math.round((width - ctx.measureText(text).width) / 2),
+            textY = height / 2 - 10;
+
+      ctx.fillText(text, textX, textY);
+
+      // Label below percent
+      ctx.font = "bold " + (height / 300).toFixed(2) + "em sans-serif"; // Smaller font
+      const text2 = data[0].label.toUpperCase();
+      const text2X = Math.round((width - ctx.measureText(text2).width) / 2);
+      const text2Y = height / 2 + 25; // Offset below
+      
+      ctx.fillStyle = isBlack ? '#888888' : '#555555';
+      ctx.fillText(text2, text2X, text2Y);
+
+      ctx.save();
+    }
+  };
   
   new Chart(ctx, {
     type: 'doughnut',
@@ -812,7 +847,7 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
     },
     options: { 
       responsive: true, 
-      maintainAspectRatio: false, /* Allow CSS to control aspect ratio */
+      maintainAspectRatio: false, 
       cutout: '65%', 
       plugins: { 
         tooltip: { enabled: false },
@@ -822,7 +857,8 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
         animateRotate: true, 
         duration: 1200 
       } 
-    }
+    },
+    plugins: [centerTextPlugin] // Register plugin
   });
   
   // Build legend
@@ -844,11 +880,7 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
     });
   }
   
-  // Animate center (slide 5 is Console Wars white, slide 6 is Regional black)
-  const centerEl = document.querySelector(`#slide-${theme === 'white' ? '5' : '6'} .donut-center`);
-  if (centerEl) {
-    gsap.from(centerEl, { opacity: 0, scale: 0.5, duration: 0.5, delay: 0.6, ease: 'back.out(1.7)' });
-  }
+  // Remove old DOM overlay animation logic since plugin handles it
 }
 
 // ============================================
