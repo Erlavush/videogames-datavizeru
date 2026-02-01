@@ -10,6 +10,7 @@ Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
+console.log("🚀 Loaded: Mobile Layout v2.0 (Grid Fixed)");
 app.innerHTML = `
   <!-- SLIDE 1: BLANK INTRO -->
   <div class="slide slide-white active" id="slide-1">

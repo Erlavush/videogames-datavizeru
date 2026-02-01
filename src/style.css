@@ -459,7 +459,7 @@ body {
    RESPONSIVE (MOBILE & TABLET)
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   /* GLOBAL SLIDE TWEAKS */
   .slide {
     padding: 20px;
