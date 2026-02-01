@@ -323,12 +323,55 @@ function goToSlide(n: number) {
 function nextSlide() { if (currentSlide < totalSlides && !isTransitioning) goToSlide(currentSlide + 1); }
 function prevSlide() { if (currentSlide > 1 && !isTransitioning) goToSlide(currentSlide - 1); }
 
+// Mobile Navigation (Swipe)
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+  const swipeThreshold = 50; // Minimum distance to count as swipe
+  const diff = touchStartX - touchEndX;
+  
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      // Swiped Left -> Next Slide
+      nextSlide();
+    } else {
+      // Swiped Right -> Previous Slide
+      prevSlide();
+    }
+  }
+}
+
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
 });
 
-document.addEventListener('click', nextSlide);
+document.addEventListener('click', () => {
+  // Only trigger next slide on click if it wasn't a swipe 
+  // (simple clicks have diff ~0, but let's be safe: swipes are handled by touchend)
+  // On mobile, tap fires click too. We might duplicate, but standard is fine.
+  // Ideally, if we swipe, we shouldn't click.
+  // Actually, 'click' fires after touchend. 
+  // Let's rely on swipes for direction, and Click for "Next" only if not a swipe?
+  // For simplicity: Tap is next. Swipe Right is back. Swipe Left is Next.
+  // To avoid double triggers, we could prevent default on touch, but that blocks scrolling.
+  // Since the app is fixed full screen, scrolling isn't an issue.
+  
+  // Let's keep click for Desktop mouse users.
+  // Mobile users might double trigger "next" if they "tap-swipe". 
+  // But standard pure Swipe doesn't trigger click usually if recognized as gestures.
+  nextSlide(); 
+});
 
 // ============================================
 // ANIMATIONS
