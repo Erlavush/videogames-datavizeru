@@ -695,25 +695,29 @@ body {
   /* Improve Legend Alignment */
   .legend-row {
     display: grid;
-    grid-template-columns: 20px 1fr auto auto; /* Color | Name | Sales | Pct */
-    gap: 10px;
+    /* Fixed widths for numbers to align vertically and prevent overlap */
+    grid-template-columns: 15px 1fr 70px 45px; 
+    gap: 8px;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     width: 100%;
-    padding: 0 5px; /* Tiny padding */
+    padding: 0;
     box-sizing: border-box;
   }
   
   .legend-name {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* Ensure it doesn't push grid */
+    min-width: 0;
   }
   
   .legend-sales, .legend-pct {
     font-size: 0.9rem;
     font-weight: 700;
+    text-align: right; /* Right align numbers */
   }
 
   /* SLIDE 8: WINNING FORMULA */
