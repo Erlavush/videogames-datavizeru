@@ -314,50 +314,123 @@ function resetGenericSlides() {
   });
 }
 
+// Exit animations for slides
+function animateExit(n: number): Promise<void> {
+  return new Promise((resolve) => {
+    const slide = slides[n - 1];
+    if (!slide) { resolve(); return; }
+
+    const md = { duration: 0.5, ease: 'power2.in' };
+    
+    // Slide 3: Genre (Bar Chart)
+    if (n === 3) {
+      const bars = slide.querySelectorAll('.bar-fill');
+      const labels = slide.querySelectorAll('.bar-label, .bar-value');
+      if (bars.length > 0) {
+        gsap.to(labels, { opacity: 0, duration: 0.3 });
+        gsap.to(bars, { ...md, width: '0%', onComplete: resolve });
+        return;
+      }
+    }
+    
+    // Slide 4: Top Games (Bar Chart)
+    if (n === 4) {
+      const bars = slide.querySelectorAll('.bar-fill');
+      const labels = slide.querySelectorAll('.bar-label, .bar-value');
+      if (bars.length > 0) {
+        gsap.to(labels, { opacity: 0, duration: 0.3 });
+        gsap.to(bars, { ...md, width: '0%', onComplete: resolve });
+        return;
+      }
+    }
+
+    // Slide 5 & 6: Donuts
+    if (n === 5 || n === 6) {
+      const area = slide.querySelector('.donut-area');
+      const legend = slide.querySelectorAll('.legend-row');
+      if (area) {
+        gsap.to(legend, { opacity: 0, x: 20, stagger: 0.05, duration: 0.3 });
+        gsap.to(area, { ...md, scale: 0.8, opacity: 0, onComplete: resolve });
+        return;
+      }
+    }
+
+    // Slide 7: Franchise (Bar Chart)
+    if (n === 7) {
+      const bars = slide.querySelectorAll('.bar-fill');
+      if (bars.length > 0) {
+        gsap.to(slide.querySelectorAll('.bar-label, .bar-value'), { opacity: 0, duration: 0.3 });
+        gsap.to(bars, { ...md, width: '0%', onComplete: resolve });
+        return;
+      }
+    }
+
+    // Slide 8: Winning Formula
+    if (n === 8) {
+      const cards = slide.querySelectorAll('.winning-card');
+      const footer = slide.querySelector('.winning-footer');
+      const header = slide.querySelector('.winning-header');
+      if (cards.length > 0) {
+        const tl = gsap.timeline({ onComplete: resolve });
+        tl.to(footer, { opacity: 0, y: 10, duration: 0.3 })
+          .to(cards, { opacity: 0, y: 20, stagger: 0.1, duration: 0.4 }, '-=0.2')
+          .to(header, { opacity: 0, y: -10, duration: 0.3 }, '-=0.3');
+        return;
+      }
+    }
+
+    // Default: just a small wait if no specific animation
+    setTimeout(resolve, n === 1 || n === 2 ? 0 : 300);
+  });
+}
+
 function goToSlide(n: number) {
   if (n < 1 || n > totalSlides || n === currentSlide) return;
   if (isTransitioning) return; // Prevent spam clicking
 
   isTransitioning = true;
 
-  // Reset state before transition
-  cleanupAllSlides();
+  // 1. Animate Exit of Current Slide
+  animateExit(currentSlide).then(() => {
+    
+    // 2. Reset state AFTER exit animation
+    cleanupAllSlides();
 
-  const oldSlide = slides[currentSlide - 1] as HTMLElement;
-  const newSlide = slides[n - 1] as HTMLElement;
+    const oldSlide = slides[currentSlide - 1] as HTMLElement;
+    const newSlide = slides[n - 1] as HTMLElement;
 
-  // 1. Fade OUT old slide
-  // Make sure old slide stays visible during fade out
-  oldSlide.style.zIndex = '1';
-  oldSlide.style.opacity = '1';
+    // 3. Fade OUT old slide container
+    oldSlide.style.zIndex = '1';
+    oldSlide.style.opacity = '1';
 
-  gsap.to(oldSlide, {
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.inOut',
-    onComplete: () => {
-      oldSlide.classList.remove('active');
-      oldSlide.style.zIndex = '';
+    gsap.to(oldSlide, {
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        oldSlide.classList.remove('active');
+        oldSlide.style.zIndex = '';
 
-      // 2. Prepare new slide
-      newSlide.classList.add('active');
-      newSlide.style.opacity = '0'; // Start invisible
-      newSlide.style.zIndex = '2';
+        // 4. Prepare new slide
+        newSlide.classList.add('active');
+        newSlide.style.opacity = '0'; // Start invisible
+        newSlide.style.zIndex = '2';
 
-      // 3. Fade IN new slide
-      gsap.to(newSlide, {
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          isTransitioning = false; // Unlock navigation
-          animateSlide(n);
-        }
-      });
-    }
+        // 5. Fade IN new slide
+        gsap.to(newSlide, {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            isTransitioning = false; // Unlock navigation
+            animateSlide(n);
+          }
+        });
+      }
+    });
+
+    currentSlide = n;
   });
-
-  currentSlide = n;
 }
 
 function nextSlide() { if (currentSlide < totalSlides && !isTransitioning) goToSlide(currentSlide + 1); }
