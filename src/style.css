@@ -451,187 +451,7 @@ body {
 
 
 
-/* ============================================
-   RESPONSIVE (MOBILE & TABLET)
-   ============================================ */
 
-/* ============================================
-   RESPONSIVE (MOBILE & TABLET)
-   ============================================ */
-
-@media (max-width: 1024px) {
-  /* GLOBAL SLIDE TWEAKS */
-  .slide {
-    padding: 20px;
-    align-items: flex-start;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding-bottom: 80px; /* Safe area for bottom nav/address bar */
-  }
-
-  .slide-header {
-    margin-bottom: 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  .header-left { margin-bottom: 10px; }
-
-  .title-main { font-size: 2.5rem; line-height: 1.1; }
-  .title-subtitle { font-size: 0.9rem; }
-  .slide-title-alt { font-size: 2rem; line-height: 1.1; }
-  
-  /* SLIDE 2: TITLE */
-  .title-content {
-    width: 100%;
-    margin-top: 10%;
-  }
-  .title-divider { width: 50px; margin: 20px 0; }
-  .title-stats { 
-    flex-direction: row; 
-    gap: 15px; 
-    justify-content: flex-start;
-  }
-  .stat-value { font-size: 1.8rem; }
-  .stat-label { font-size: 0.6rem; }
-
-  /* CHARTS GENERAL */
-  .chart-slide {
-    width: 100%;
-    height: auto;
-    min-height: 100%; /* Change to % to avoid forcing scroll unless needed */
-    padding-top: 50px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .chart-area {
-    height: 35vh;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-
-  /* SLIDE 5 & 6: DONUTS */
-  .donut-area { 
-    flex-direction: column; 
-    gap: 20px; 
-    height: auto;
-    width: 100%;
-    align-items: center;
-  }
-  
-  .donut-wrap {
-    width: 250px;
-    height: 250px;
-    /* Center the donut */
-    margin: 0 auto;
-  }
-  
-  .donut-legend {
-    width: 100%;
-    padding: 0;
-    max-width: 100%;
-  }
-  
-  /* Improve Legend Alignment */
-  .legend-row {
-    display: grid;
-    grid-template-columns: 20px 1fr auto auto; /* Color | Name | Sales | Pct */
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 0 5px; /* Tiny padding */
-    box-sizing: border-box;
-  }
-  
-  .legend-name {
-    font-size: 0.8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .legend-sales, .legend-pct {
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
-
-  /* SLIDE 8: WINNING FORMULA */
-  .winning-layout {
-    padding: 15px;
-    padding-top: 50px;
-    justify-content: flex-start;
-    overflow-y: visible; /* Let parent handle overflow */
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .winning-title { 
-    font-size: 2.2rem; /* Much smaller to fit screen */
-    word-wrap: break-word; /* Prevent overflow */
-  }
-  
-  .winning-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    margin-bottom: 30px;
-  }
-  
-  .winning-card {
-    width: 100%;
-    padding: 20px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    min-height: auto;
-  }
-  
-  /* Adjust inner card layout */
-  .winning-number {
-    font-size: 3rem; /* Reduced from 5rem */
-    margin-bottom: 0;
-    line-height: 1;
-  }
-  
-  .winning-label-group {
-    text-align: right;
-    flex: 1;
-    margin-bottom: 0;
-  }
-  
-  .winning-label-eyebrow {
-    font-size: 0.6rem;
-    margin-bottom: 4px;
-  }
-  
-  .winning-label-main {
-    font-size: 1rem;
-    line-height: 1.2;
-  }
-  
-  .winning-footer-label {
-    display: none; 
-  }
-
-  .winning-footer {
-    padding-bottom: 30px;
-  }
-  
-  .winning-quote { font-size: 1rem; }
-  
-  .winning-meta {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0.6rem;
-  }
-  .winning-dot { display: inline-block; }
-}
 
 /* ============================================
    SLIDE 8: WINNING FORMULA (New Layout)
@@ -792,4 +612,183 @@ body {
   height: 4px;
   background: #666;
   border-radius: 50%;
+}
+
+/* ============================================
+   RESPONSIVE (MOBILE & TABLET) - MOVED TO END
+   ============================================ */
+
+@media (max-width: 1024px) {
+  /* GLOBAL SLIDE TWEAKS */
+  .slide {
+    padding: 20px;
+    align-items: flex-start;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-bottom: 80px; /* Safe area for bottom nav/address bar */
+  }
+
+  .slide-header {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .header-left { margin-bottom: 10px; }
+
+  .title-main { font-size: 2.5rem; line-height: 1.1; }
+  .title-subtitle { font-size: 0.9rem; }
+  .slide-title-alt { font-size: 2.2rem; line-height: 1.1; }
+  
+  /* SLIDE 2: TITLE */
+  .title-content {
+    width: 100%;
+    margin-top: 10%;
+  }
+  .title-divider { width: 50px; margin: 20px 0; }
+  .title-stats { 
+    flex-direction: row; 
+    gap: 15px; 
+    justify-content: flex-start;
+  }
+  .stat-value { font-size: 1.8rem; }
+  .stat-label { font-size: 0.6rem; }
+
+  /* CHARTS GENERAL */
+  .chart-slide {
+    width: 100%;
+    height: auto;
+    min-height: 100%; 
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chart-area {
+    height: 35vh;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  /* SLIDE 5 & 6: DONUTS */
+  .donut-area { 
+    flex-direction: column; 
+    gap: 20px; 
+    height: auto;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .donut-wrap {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+  }
+  
+  .donut-legend {
+    width: 100%;
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  /* Improve Legend Alignment */
+  .legend-row {
+    display: grid;
+    grid-template-columns: 20px 1fr auto auto; /* Color | Name | Sales | Pct */
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0 5px; /* Tiny padding */
+    box-sizing: border-box;
+  }
+  
+  .legend-name {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .legend-sales, .legend-pct {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  /* SLIDE 8: WINNING FORMULA */
+  .winning-layout {
+    padding: 15px;
+    padding-top: 50px;
+    justify-content: flex-start;
+    overflow-y: visible; /* Let parent handle overflow */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .winning-title { 
+    font-size: 2.2rem; /* Much smaller to fit screen */
+    word-wrap: break-word; /* Prevent overflow */
+  }
+  
+  .winning-grid {
+    display: flex; /* Override grid */
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .winning-card {
+    width: 100%;
+    padding: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: auto;
+  }
+  
+  /* Adjust inner card layout */
+  .winning-number {
+    font-size: 3rem; /* Reduced from 5rem */
+    margin-bottom: 0;
+    line-height: 1;
+  }
+  
+  .winning-number span { font-size: 1.5rem; }
+
+  .winning-label-group {
+    text-align: right;
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  .winning-label-eyebrow {
+    font-size: 0.6rem;
+    margin-bottom: 4px;
+  }
+  
+  .winning-label-main {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  
+  .winning-footer-label {
+    display: none; 
+  }
+
+  .winning-footer {
+    padding-bottom: 30px;
+  }
+  
+  .winning-quote { font-size: 1rem; }
+  
+  .winning-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.6rem;
+  }
+  .winning-dot { display: inline-block; }
 }
