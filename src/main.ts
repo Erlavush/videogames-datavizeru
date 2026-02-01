@@ -11,14 +11,22 @@ Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
 app.innerHTML = `
-  <!-- SLIDE 1: TITLE -->
-  <div class="slide slide-black active" id="slide-1">
+  <!-- SLIDE 1: BLANK INTRO -->
+  <div class="slide slide-white active" id="slide-1">
+    <div class="blank-intro"></div>
+  </div>
+
+  <!-- SLIDE 2: TITLE with Typewriter -->
+  <div class="slide slide-black" id="slide-2">
     <div class="title-content">
-      <div class="title-eyebrow">DATA VISUALIZATION ACTIVITY</div>
-      <h1 class="title-main">THE BILLION<br>DOLLAR<br>QUESTION</h1>
-      <div class="title-divider"></div>
-      <p class="title-subtitle">What game should you develop to maximize profit?</p>
-      <div class="title-stats">
+      <p class="title-subtitle hidden">What game should you develop to maximize profit?</p>
+      <h1 class="title-main">
+        <span class="typewriter hidden" id="title-line-1"></span>
+        <span class="typewriter hidden" id="title-line-2"></span>
+        <span class="typewriter hidden" id="title-line-3"></span>
+      </h1>
+      <div class="title-divider hidden"></div>
+      <div class="title-stats hidden">
         <div class="stat">
           <span class="stat-value" id="stat-games">0</span>
           <span class="stat-label">GAMES ANALYZED</span>
@@ -31,25 +39,28 @@ app.innerHTML = `
     </div>
   </div>
 
-  <!-- SLIDE 2: GENRE BREAKDOWN (WHITE) -->
-  <div class="slide slide-white" id="slide-2">
+  <!-- SLIDE 3: GENRE BREAKDOWN (WHITE) -->
+  <div class="slide slide-white" id="slide-3">
     <div class="chart-slide">
       <div class="slide-header">
-        <div class="header-left">
+        <div class="header-left hidden">
           <p class="chart-eyebrow dark">CHART 1 OF 5 • SALES BY CATEGORY</p>
           <div class="accent-line dark"></div>
         </div>
-        <h2 class="slide-title-alt dark">GENRE<br>BREAKDOWN</h2>
+        <h2 class="slide-title-alt dark">
+          <span class="title-type" id="genre-title-1"></span>
+          <span class="title-type" id="genre-title-2"></span>
+        </h2>
       </div>
-      <div class="chart-area" id="genre-chart"></div>
-      <div class="slide-insight dark">
+      <div class="chart-area hidden" id="genre-chart"></div>
+      <div class="slide-insight dark hidden" id="genre-insight">
         <span class="insight-key">ACTION + SHOOTER = 32%</span> of total market
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 3: TOP 10 GAMES (BLACK) -->
-  <div class="slide slide-black" id="slide-3">
+  <!-- SLIDE 4: TOP 10 GAMES (BLACK) -->
+  <div class="slide slide-black" id="slide-4">
     <div class="chart-slide">
       <div class="slide-header">
         <div class="header-left">
@@ -65,8 +76,8 @@ app.innerHTML = `
     </div>
   </div>
 
-  <!-- SLIDE 4: CONSOLE WARS (WHITE) -->
-  <div class="slide slide-white" id="slide-4">
+  <!-- SLIDE 5: CONSOLE WARS (WHITE) -->
+  <div class="slide slide-white" id="slide-5">
     <div class="chart-slide">
       <div class="slide-header">
         <div class="header-left">
@@ -88,8 +99,8 @@ app.innerHTML = `
     </div>
   </div>
 
-  <!-- SLIDE 5: REGIONAL SALES (BLACK) -->
-  <div class="slide slide-black" id="slide-5">
+  <!-- SLIDE 6: REGIONAL SALES (BLACK) -->
+  <div class="slide slide-black" id="slide-6">
     <div class="chart-slide">
       <div class="slide-header">
         <div class="header-left">
@@ -111,8 +122,8 @@ app.innerHTML = `
     </div>
   </div>
 
-  <!-- SLIDE 6: TOP FRANCHISES (WHITE) -->
-  <div class="slide slide-white" id="slide-6">
+  <!-- SLIDE 7: TOP FRANCHISES (WHITE) -->
+  <div class="slide slide-white" id="slide-7">
     <div class="chart-slide">
       <div class="slide-header">
         <div class="header-left">
@@ -128,39 +139,64 @@ app.innerHTML = `
     </div>
   </div>
 
-  <!-- SLIDE 7: THE ANSWER -->
-  <div class="slide slide-black" id="slide-7">
-    <div class="answer-layout">
-      <p class="answer-eyebrow">THE DATA SPEAKS</p>
-      <h2 class="answer-title">THE WINNING FORMULA</h2>
-      <div class="answer-cards">
-        <div class="answer-card" id="card-1">
-          <div class="card-icon">🎮</div>
-          <div class="card-label">GENRE</div>
-          <div class="card-value">ACTION / SHOOTER</div>
-          <div class="card-stat">32% of market</div>
+  <!-- SLIDE 8: THE ANSWER (New Winning Formula Layout) -->
+  <div class="slide slide-black" id="slide-8">
+    <div class="winning-layout hidden">
+      <div class="grid-bg"></div>
+      
+      <header class="winning-header">
+        <span class="winning-eyebrow">The Data Speaks</span>
+        <h1 class="winning-title">The Winning Formula</h1>
+      </header>
+
+      <div class="winning-grid">
+        <!-- Card 1 -->
+        <div class="winning-card" id="win-card-1">
+          <div class="winning-number">32<span>%</span></div>
+          <div class="winning-label-group">
+            <p class="winning-label-eyebrow">Genre</p>
+            <h2 class="winning-label-main">Action /<br>Shooter</h2>
+          </div>
+          <p class="winning-footer-label">Market Share</p>
         </div>
-        <div class="answer-card" id="card-2">
-          <div class="card-icon">🕹️</div>
-          <div class="card-label">PLATFORM</div>
-          <div class="card-value">PLAYSTATION</div>
-          <div class="card-stat">51% market share</div>
+
+        <!-- Card 2 -->
+        <div class="winning-card" id="win-card-2">
+          <div class="winning-number">51<span>%</span></div>
+          <div class="winning-label-group">
+            <p class="winning-label-eyebrow">Platform</p>
+            <h2 class="winning-label-main">PlayStation</h2>
+          </div>
+          <p class="winning-footer-label">Segment Reach</p>
         </div>
-        <div class="answer-card" id="card-3">
-          <div class="card-icon">🌎</div>
-          <div class="card-label">TARGET MARKET</div>
-          <div class="card-value">NORTH AMERICA</div>
-          <div class="card-stat">51% of global sales</div>
+
+        <!-- Card 3 -->
+        <div class="winning-card" id="win-card-3">
+          <div class="winning-number">51<span>%</span></div>
+          <div class="winning-label-group">
+            <p class="winning-label-eyebrow">Target Market</p>
+            <h2 class="winning-label-main">North America</h2>
+          </div>
+          <p class="winning-footer-label">Global Sales</p>
         </div>
       </div>
-      <p class="answer-closing">"Data tells the story."</p>
-      <p class="answer-credits">VGChartz 2024 • 64,016 Games • $6.6B Total Sales</p>
+
+      <footer class="winning-footer">
+        <p class="winning-quote">"Data tells the story."</p>
+        <div class="winning-meta">
+          <span>VGChartz 2024</span>
+          <span class="winning-dot"></span>
+          <span>64,016 Games</span>
+          <span class="winning-dot"></span>
+          <span>$6.6B Total Sales</span>
+        </div>
+      </footer>
     </div>
   </div>
 
   <!-- NAVIGATION -->
   <div class="nav-hint" id="nav-hint">
-    <span class="nav-counter"><span id="current-slide">1</span> / 7</span>
+    <span class="nav-counter"><span id="current-slide">1</span> / 8</span>
     <span class="nav-text">Press SPACE or → to continue</span>
   </div>
 `;
@@ -170,47 +206,133 @@ app.innerHTML = `
 // ============================================
 
 let currentSlide = 1;
-const totalSlides = 7;
+const totalSlides = 8;
 const slides = document.querySelectorAll('.slide');
 const slideCounter = document.getElementById('current-slide')!;
 const navHint = document.getElementById('nav-hint')!;
+let isTransitioning = false;
+const activeTimeouts: number[] = [];
+
+// Wrapper to track timeouts
+function setTrackedTimeout(callback: Function, delay: number) {
+  const id = window.setTimeout(() => {
+    callback();
+    // Remove from tracking once done
+    const index = activeTimeouts.indexOf(id);
+    if (index > -1) activeTimeouts.splice(index, 1);
+  }, delay);
+  activeTimeouts.push(id);
+  return id;
+}
+
+// Clear all tracked timeouts
+function clearAllTimeouts() {
+  activeTimeouts.forEach(id => clearTimeout(id));
+  activeTimeouts.length = 0;
+}
+
+// Clean up all slides - reset to initial state
+function cleanupAllSlides() {
+  // Kill all GSAP animations
+  gsap.killTweensOf('*');
+  
+  // Clear all tracked timeouts
+  clearAllTimeouts();
+  
+  // Reset all slides
+  slides.forEach((slide, index) => {
+    const el = slide as HTMLElement;
+    el.style.zIndex = '';
+    el.style.opacity = '';
+    
+    // Hide all internal content immediately
+    const content = el.querySelectorAll('.title-content, .chart-slide, .answer-layout, .winning-layout');
+    content.forEach(c => {
+      (c as HTMLElement).style.opacity = '0';
+      (c as HTMLElement).style.visibility = 'hidden';
+      c.classList.add('hidden');
+    });
+
+    if (index !== currentSlide - 1) {
+      el.classList.remove('active');
+    }
+  });
+  
+  // Explicitly reset specific elements
+  resetSlide2();
+  resetSlide3();
+  resetGenericSlides(); // Helper for slides 4-8
+}
+
+// Reset generic chart elements for slides 4, 5, 6, 7, 8
+function resetGenericSlides() {
+  const charts = document.querySelectorAll('.chart-area, .donut-area, .slide-insight, .answer-eyebrow, .answer-title, .answer-card, .answer-closing, .answer-credits, .winning-eyebrow, .winning-title, .winning-card, .winning-footer');
+  charts.forEach(el => {
+    (el as HTMLElement).style.opacity = '0';
+    (el as HTMLElement).style.visibility = 'hidden';
+    gsap.set(el, { clearProps: 'all' }); // Clear GSAP props
+    (el as HTMLElement).classList.add('hidden');
+  });
+  
+  // Clear charts
+  const containers = ['games-chart', 'console-donut', 'regional-donut', 'franchise-chart'];
+  containers.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+}
 
 function goToSlide(n: number) {
   if (n < 1 || n > totalSlides || n === currentSlide) return;
+  if (isTransitioning) return; // Prevent spam clicking
   
-  const direction = n > currentSlide ? 1 : -1;
-  const oldSlide = slides[currentSlide - 1];
-  const newSlide = slides[n - 1];
+  isTransitioning = true;
   
-  gsap.to(oldSlide, {
-    x: direction * -100 + '%',
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.inOut',
-    onComplete: () => oldSlide.classList.remove('active')
+  // Kill all running GSAP animations and clean up
+  cleanupAllSlides();
+  
+  const oldSlide = slides[currentSlide - 1] as HTMLElement;
+  const newSlide = slides[n - 1] as HTMLElement;
+  
+  // Make sure only new slide will be active
+  slides.forEach((slide) => {
+    if (slide !== newSlide && slide !== oldSlide) {
+      (slide as HTMLElement).classList.remove('active');
+    }
   });
   
-  gsap.fromTo(newSlide, 
-    { x: direction * 100 + '%', opacity: 0 },
-    { 
-      x: '0%', 
-      opacity: 1, 
-      duration: 0.5, 
-      ease: 'power2.inOut',
-      onStart: () => newSlide.classList.add('active'),
-      onComplete: () => animateSlide(n)
+  // Set up new slide behind old slide
+  newSlide.classList.add('active');
+  newSlide.style.zIndex = '1';
+  newSlide.style.opacity = '1';
+  oldSlide.style.zIndex = '2';
+  oldSlide.style.opacity = '1';
+  
+  // Smooth fade transition - old slide fades out, revealing new slide behind
+  gsap.to(oldSlide, {
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power2.inOut',
+    onComplete: () => {
+      oldSlide.classList.remove('active');
+      oldSlide.style.zIndex = '';
+      oldSlide.style.opacity = '';
+      newSlide.style.zIndex = '';
+      isTransitioning = false;
+      animateSlide(n);
     }
-  );
+  });
   
   currentSlide = n;
   slideCounter.textContent = String(n);
   
-  // Theme for nav hint
-  navHint.className = (n === 2 || n === 4 || n === 6) ? 'nav-hint dark' : 'nav-hint';
+  // Theme for nav hint (white slides: 1, 3, 5, 7)
+  const whiteSlides = [1, 3, 5, 7];
+  navHint.className = whiteSlides.includes(n) ? 'nav-hint dark' : 'nav-hint';
 }
 
-function nextSlide() { if (currentSlide < totalSlides) goToSlide(currentSlide + 1); }
-function prevSlide() { if (currentSlide > 1) goToSlide(currentSlide - 1); }
+function nextSlide() { if (currentSlide < totalSlides && !isTransitioning) goToSlide(currentSlide + 1); }
+function prevSlide() { if (currentSlide > 1 && !isTransitioning) goToSlide(currentSlide - 1); }
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
@@ -225,49 +347,235 @@ document.addEventListener('click', nextSlide);
 
 function animateSlide(n: number) {
   switch(n) {
-    case 1: animateTitle(); break;
-    case 2: animateGenres(); break;
-    case 3: animateTopGames(); break;
-    case 4: animateConsoles(); break;
-    case 5: animateRegional(); break;
-    case 6: animateFranchises(); break;
-    case 7: animateAnswer(); break;
+    case 1: /* Blank slide - no animation */ break;
+    case 2: animateTitle(); break;
+    case 3: animateGenres(); break;
+    case 4: animateTopGames(); break;
+    case 5: animateConsoles(); break;
+    case 6: animateRegional(); break;
+    case 7: animateFranchises(); break;
+    case 8: animateAnswer(); break;
   }
 }
 
-// SLIDE 1: Title
+// SLIDE 2: Title with Sequential Animation (like PowerPoint)
 function animateTitle() {
-  gsap.timeline()
-    .from('.title-eyebrow', { opacity: 0, y: -20, duration: 0.5 })
-    .from('.title-main', { opacity: 0, y: 30, duration: 0.8 }, '-=0.2')
-    .from('.title-divider', { scaleX: 0, duration: 0.5 }, '-=0.3')
-    .from('.title-subtitle', { opacity: 0, duration: 0.5 }, '-=0.2')
-    .from('.stat', { opacity: 0, y: 20, stagger: 0.2, duration: 0.5 });
+  // Reset elements first
+  resetSlide2();
   
-  gsap.to({ val: 0 }, { val: 64016, duration: 2, delay: 1.5, ease: 'power2.out',
-    onUpdate: function() { document.getElementById('stat-games')!.textContent = Math.floor(this.targets()[0].val).toLocaleString(); }
-  });
-  gsap.to({ val: 0 }, { val: 6.6, duration: 2, delay: 1.7, ease: 'power2.out',
-    onUpdate: function() { document.getElementById('stat-sales')!.textContent = this.targets()[0].val.toFixed(1); }
-  });
+  // Unhide the parent container explicitly
+  const slide = document.getElementById('slide-2')!;
+  const content = slide.querySelector('.title-content') as HTMLElement;
+  content.classList.remove('hidden');
+  content.style.opacity = '1';
+  content.style.visibility = 'visible';
+  
+  const subtitle = document.querySelector('.title-subtitle') as HTMLElement;
+  const line1 = document.getElementById('title-line-1')!;
+  const line2 = document.getElementById('title-line-2')!;
+  const line3 = document.getElementById('title-line-3')!;
+  const divider = document.querySelector('.title-divider') as HTMLElement;
+  const stats = document.querySelector('.title-stats') as HTMLElement;
+  
+  const lines = ['THE BILLION', 'DOLLAR', 'QUESTION'];
+  
+  // Typewriter function
+  function typeWriter(element: HTMLElement, text: string, callback?: () => void) {
+    let i = 0;
+    element.textContent = '';
+    element.classList.remove('hidden');
+    element.style.opacity = '1';
+    element.style.visibility = 'visible';
+    
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTrackedTimeout(type, 70); // Speed of typing
+      } else if (callback) {
+        setTrackedTimeout(callback, 150); // Pause before next line
+      }
+    }
+    type();
+  }
+  
+  // Show helper function
+  const showElement = (el: HTMLElement, delay: number = 0) => {
+    el.classList.remove('hidden');
+    gsap.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, visibility: 'visible', duration: 0.5, delay: delay });
+  };
+  
+  // 1. Show subtitle first
+  setTrackedTimeout(() => {
+    showElement(subtitle);
+    
+    // 2. Start typing title after subtitle appears
+    setTrackedTimeout(() => {
+      typeWriter(line1, lines[0], () => {
+        typeWriter(line2, lines[1], () => {
+          typeWriter(line3, lines[2], () => {
+             // 3. Show divider
+             showElement(divider);
+             
+             // 4. Show stats
+             setTrackedTimeout(() => {
+               showElement(stats);
+               
+               // Animate numbers with proper formatting
+               const statGames = document.getElementById('stat-games');
+               const statSales = document.getElementById('stat-sales');
+               
+               if (statGames) {
+                 const target = { val: 0 };
+                 gsap.to(target, { 
+                   val: 64016, 
+                   duration: 2, 
+                   ease: 'power2.out',
+                   onUpdate: () => {
+                     statGames.innerText = Math.floor(target.val).toLocaleString();
+                   }
+                 });
+               }
+               
+               if (statSales) {
+                 const target = { val: 0 };
+                 gsap.to(target, { 
+                   val: 6.6, 
+                   duration: 2, 
+                   ease: 'power2.out',
+                   onUpdate: () => {
+                     statSales.innerText = target.val.toFixed(1);
+                   }
+                 });
+               }
+             }, 400);
+          });
+        });
+      });
+    }, 600);
+  }, 200);
 }
 
-// SLIDE 2: Genre Breakdown
+// Reset slide 2 to initial state
+function resetSlide2() {
+  const subtitle = document.querySelector('.title-subtitle') as HTMLElement;
+  const line1 = document.getElementById('title-line-1')!;
+  const line2 = document.getElementById('title-line-2')!;
+  const line3 = document.getElementById('title-line-3')!;
+  const divider = document.querySelector('.title-divider') as HTMLElement;
+  const stats = document.querySelector('.title-stats') as HTMLElement;
+  
+  if (subtitle) { subtitle.classList.add('hidden'); subtitle.style.opacity = '0'; }
+  if (line1) { line1.textContent = ''; line1.classList.add('hidden'); }
+  if (line2) { line2.textContent = ''; line2.classList.add('hidden'); }
+  if (line3) { line3.textContent = ''; line3.classList.add('hidden'); }
+  if (divider) { divider.classList.add('hidden'); divider.style.opacity = '0'; }
+  if (stats) { stats.classList.add('hidden'); stats.style.opacity = '0'; }
+  
+  // Reset stat counters
+  const statGames = document.getElementById('stat-games');
+  const statSales = document.getElementById('stat-sales');
+  if (statGames) statGames.textContent = '0';
+  if (statSales) statSales.textContent = '0';
+}
+
+// SLIDE 3: Genre Breakdown with Typewriter
 function animateGenres() {
-  buildBarChart('genre-chart', [
-    { name: 'SPORTS', value: 1188 },
-    { name: 'ACTION', value: 1126 },
-    { name: 'SHOOTER', value: 996 },
-    { name: 'MISC', value: 558 },
-    { name: 'RACING', value: 526 },
-    { name: 'RPG', value: 427 },
-    { name: 'PLATFORM', value: 349 },
-    { name: 'FIGHTING', value: 341 },
-  ], 'white');
+  // Reset elements first
+  resetSlide3();
+  
+  // Unhide the parent container explicitly
+  const slide = document.getElementById('slide-3')!;
+  const content = slide.querySelector('.chart-slide') as HTMLElement;
+  content.classList.remove('hidden');
+  content.style.opacity = '1';
+  content.style.visibility = 'visible';
+  
+  const headerLeft = document.querySelector('#slide-3 .header-left') as HTMLElement;
+  const title1 = document.getElementById('genre-title-1')!;
+  const title2 = document.getElementById('genre-title-2')!;
+  const chartArea = document.getElementById('genre-chart') as HTMLElement;
+  const insight = document.getElementById('genre-insight') as HTMLElement;
+  
+  // Typewriter helper
+  function typeText(element: HTMLElement, text: string, callback?: () => void) {
+    let i = 0;
+    element.textContent = '';
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTrackedTimeout(type, 60);
+      } else if (callback) {
+        setTrackedTimeout(callback, 100);
+      }
+    }
+    type();
+  }
+  
+  // SEQUENCE
+  setTrackedTimeout(() => {
+    // 1. Show header
+    headerLeft.classList.remove('hidden');
+    gsap.fromTo(headerLeft, { opacity: 0, x: -20 }, { opacity: 1, x: 0, visibility: 'visible', duration: 0.4 });
+    
+    // 2. Typewrite title
+    setTrackedTimeout(() => {
+      typeText(title1, 'GENRE', () => {
+        typeText(title2, 'BREAKDOWN', () => {
+          // 3. Show chart and build all bars at once
+          chartArea.classList.remove('hidden');
+          chartArea.style.visibility = 'visible';
+          chartArea.style.opacity = '1';
+          
+          buildBarChart('genre-chart', [
+            { name: 'SPORTS', value: 1188 },
+            { name: 'ACTION', value: 1126 },
+            { name: 'SHOOTER', value: 996 },
+            { name: 'MISC', value: 558 },
+            { name: 'RACING', value: 526 },
+            { name: 'RPG', value: 427 },
+            { name: 'PLATFORM', value: 349 },
+            { name: 'FIGHTING', value: 341 },
+          ], 'white');
+          
+          // 4. Show insight
+          setTrackedTimeout(() => {
+            insight.classList.remove('hidden');
+            gsap.fromTo(insight, { opacity: 0, y: 20 }, { opacity: 1, y: 0, visibility: 'visible', duration: 0.5 });
+          }, 1200);
+        });
+      });
+    }, 300);
+  }, 200);
 }
 
-// SLIDE 3: Top Games
+// Reset slide 3 to initial state
+function resetSlide3() {
+  const headerLeft = document.querySelector('#slide-3 .header-left') as HTMLElement;
+  const title1 = document.getElementById('genre-title-1')!;
+  const title2 = document.getElementById('genre-title-2')!;
+  const chartArea = document.getElementById('genre-chart') as HTMLElement;
+  const insight = document.getElementById('genre-insight') as HTMLElement;
+  
+  if (headerLeft) { headerLeft.classList.add('hidden'); headerLeft.style.opacity = '0'; }
+  if (title1) title1.textContent = '';
+  if (title2) title2.textContent = '';
+  if (chartArea) { chartArea.classList.add('hidden'); chartArea.innerHTML = ''; chartArea.style.opacity = '0'; }
+  if (insight) { insight.classList.add('hidden'); insight.style.opacity = '0'; }
+}
+
+// SLIDE 4: Top Games
 function animateTopGames() {
+  const slide = document.getElementById('slide-4')!;
+  slide.querySelector('.chart-slide')!.classList.remove('hidden');
+  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
+  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
+  
+  (document.getElementById('games-chart') as HTMLElement).classList.remove('hidden');
+  (document.getElementById('games-chart') as HTMLElement).style.visibility = 'visible';
+  (document.getElementById('games-chart') as HTMLElement).style.opacity = '1';
+
   buildBarChart('games-chart', [
     { name: 'GTA V (PS3)', value: 20.3 },
     { name: 'GTA V (PS4)', value: 19.4 },
@@ -280,10 +588,28 @@ function animateTopGames() {
     { name: 'COD: BO2 (X360)', value: 13.9 },
     { name: 'COD: BO2 (PS3)', value: 13.8 },
   ], 'black');
+  
+  // Show insight after bars animate
+  const insight = document.querySelector('#slide-4 .slide-insight') as HTMLElement;
+  if (insight) {
+    insight.classList.remove('hidden');
+    insight.style.visibility = 'visible';
+    gsap.fromTo(insight, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.5 });
+  }
 }
 
-// SLIDE 4: Console Wars
+// SLIDE 5: Console Wars
 function animateConsoles() {
+  const slide = document.getElementById('slide-5')!;
+  slide.querySelector('.chart-slide')!.classList.remove('hidden');
+  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
+  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
+  
+  const area = slide.querySelector('.donut-area') as HTMLElement;
+  area.classList.remove('hidden');
+  area.style.visibility = 'visible';
+  area.style.opacity = '1';
+
   buildDonutChart('console-donut', 'console-legend', [
     { label: 'PLAYSTATION', value: 50.6, sales: '$3.3B' },
     { label: 'NINTENDO', value: 25.8, sales: '$1.6B' },
@@ -292,8 +618,18 @@ function animateConsoles() {
   ], 'white');
 }
 
-// SLIDE 5: Regional Sales
+// SLIDE 6: Regional Sales
 function animateRegional() {
+  const slide = document.getElementById('slide-6')!;
+  slide.querySelector('.chart-slide')!.classList.remove('hidden');
+  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
+  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
+  
+  const area = slide.querySelector('.donut-area') as HTMLElement;
+  area.classList.remove('hidden');
+  area.style.visibility = 'visible';
+  area.style.opacity = '1';
+
   buildDonutChart('regional-donut', 'regional-legend', [
     { label: 'NORTH AMERICA', value: 51, sales: '$3.3B' },
     { label: 'EUROPE', value: 29, sales: '$1.9B' },
@@ -302,8 +638,17 @@ function animateRegional() {
   ], 'black');
 }
 
-// SLIDE 6: Top Franchises
+// SLIDE 7: Top Franchises
 function animateFranchises() {
+  const slide = document.getElementById('slide-7')!;
+  slide.querySelector('.chart-slide')!.classList.remove('hidden');
+  (slide.querySelector('.chart-slide') as HTMLElement).style.visibility = 'visible';
+  (slide.querySelector('.chart-slide') as HTMLElement).style.opacity = '1';
+  
+  (document.getElementById('franchise-chart') as HTMLElement).classList.remove('hidden');
+  (document.getElementById('franchise-chart') as HTMLElement).style.visibility = 'visible';
+  (document.getElementById('franchise-chart') as HTMLElement).style.opacity = '1';
+
   buildBarChart('franchise-chart', [
     { name: 'CALL OF DUTY', value: 303 },
     { name: 'FIFA', value: 212 },
@@ -311,18 +656,58 @@ function animateFranchises() {
     { name: 'GRAND THEFT AUTO', value: 155 },
     { name: 'MADDEN NFL', value: 130 },
   ], 'white');
+  
+  // Show insight after bars animate
+  const insight = document.querySelector('#slide-7 .slide-insight') as HTMLElement;
+  if (insight) {
+    insight.classList.remove('hidden');
+    insight.style.visibility = 'visible';
+    gsap.fromTo(insight, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.2 });
+  }
 }
 
-// SLIDE 7: Answer
+// SLIDE 8: Answer
+// SLIDE 8: Answer (Winning Formula)
 function animateAnswer() {
-  gsap.timeline()
-    .from('.answer-eyebrow', { opacity: 0, y: -20, duration: 0.4 })
-    .from('.answer-title', { opacity: 0, y: -30, duration: 0.6 }, '-=0.2')
-    .from('#card-1', { opacity: 0, y: 50, rotateX: -20, duration: 0.6, ease: 'back.out(1.4)' }, '-=0.2')
-    .from('#card-2', { opacity: 0, y: 50, rotateX: -20, duration: 0.6, ease: 'back.out(1.4)' }, '-=0.3')
-    .from('#card-3', { opacity: 0, y: 50, rotateX: -20, duration: 0.6, ease: 'back.out(1.4)' }, '-=0.3')
-    .from('.answer-closing', { opacity: 0, duration: 0.8 }, '-=0.2')
-    .from('.answer-credits', { opacity: 0, duration: 0.5 });
+  const slide = document.getElementById('slide-8')!;
+  const layout = slide.querySelector('.winning-layout') as HTMLElement;
+  
+  // Unhide main container
+  layout.classList.remove('hidden');
+  layout.style.visibility = 'visible';
+  layout.style.opacity = '1';
+  
+  // Elements to animate
+  const eyebrow = slide.querySelector('.winning-eyebrow') as HTMLElement;
+  const title = slide.querySelector('.winning-title') as HTMLElement;
+  const cards = slide.querySelectorAll('.winning-card');
+  const footer = slide.querySelector('.winning-footer') as HTMLElement;
+
+  // Unhide everything first so GSAP can take over
+  [eyebrow, title, footer].forEach(el => {
+    if (el) {
+      el.classList.remove('hidden');
+      el.style.visibility = 'visible';
+    }
+  });
+  cards.forEach(card => {
+    (card as HTMLElement).classList.remove('hidden');
+    (card as HTMLElement).style.visibility = 'visible';
+  });
+
+  // GSAP Timeline
+  const tl = gsap.timeline();
+
+  tl.from(eyebrow, { opacity: 0, y: -20, duration: 0.5, ease: 'power2.out' })
+    .from(title, { opacity: 0, y: 20, duration: 0.7, ease: 'power3.out' }, '-=0.3')
+    .from(cards, { 
+      opacity: 0, 
+      y: 50, 
+      duration: 0.6, 
+      stagger: 0.2, 
+      ease: 'back.out(1.2)' 
+    }, '-=0.2')
+    .from(footer, { opacity: 0, duration: 1 }, '-=0.1');
 }
 
 // ============================================
@@ -357,11 +742,6 @@ function buildBarChart(containerId: string, data: {name: string, value: number}[
     gsap.to(row.querySelector('.bar-fill'), { width: width + '%', duration: 1, delay: 0.2 + i * 0.1, ease: 'power3.out' });
     gsap.from(row.querySelector('.bar-value'), { opacity: 0, x: -20, duration: 0.4, delay: 0.6 + i * 0.1 });
   });
-  
-  const insightEl = container.closest('.chart-slide')?.querySelector('.slide-insight');
-  if (insightEl) {
-    gsap.from(insightEl, { opacity: 0, y: 20, duration: 0.5, delay: 1.5 });
-  }
 }
 
 function buildDonutChart(canvasId: string, legendId: string, data: {label: string, value: number, sales: string}[], theme: 'black' | 'white') {
@@ -431,8 +811,8 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
     });
   }
   
-  // Animate center
-  const centerEl = document.querySelector(`#slide-${theme === 'white' ? '4' : '5'} .donut-center`);
+  // Animate center (slide 5 is Console Wars white, slide 6 is Regional black)
+  const centerEl = document.querySelector(`#slide-${theme === 'white' ? '5' : '6'} .donut-center`);
   if (centerEl) {
     gsap.from(centerEl, { opacity: 0, scale: 0.5, duration: 0.5, delay: 0.6, ease: 'back.out(1.7)' });
   }
@@ -441,4 +821,4 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
 // ============================================
 // INIT
 // ============================================
-setTimeout(animateTitle, 300);
+// Slide 1 is blank, no animation needed on start
