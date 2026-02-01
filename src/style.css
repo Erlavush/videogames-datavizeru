@@ -449,33 +449,7 @@ body {
   color: var(--grey-mid);
 }
 
-/* ============================================
-   NAVIGATION
-   ============================================ */
 
-.nav-hint {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  font-size: 0.75rem;
-  color: var(--grey-light);
-  z-index: 100;
-}
-.nav-hint.dark { color: var(--grey-mid); }
-
-.nav-counter {
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.nav-text {
-  font-weight: 500;
-  opacity: 0.7;
-}
 
 /* ============================================
    RESPONSIVE

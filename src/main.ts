@@ -193,27 +193,14 @@ app.innerHTML = `
       </footer>
     </div>
   </div>
-
-  <!-- NAVIGATION -->
-  <div class="nav-hint" id="nav-hint">
-    <span class="nav-counter"><span id="current-slide">1</span> / 8</span>
-    <span class="nav-text">Press SPACE or → to continue</span>
-  </div>
 `;
 
 // ============================================
-// NAVIGATION
+// ANIMATIONS
 // ============================================
 
-let currentSlide = 1;
-const totalSlides = 8;
-const slides = document.querySelectorAll('.slide');
-const slideCounter = document.getElementById('current-slide')!;
-const navHint = document.getElementById('nav-hint')!;
-let isTransitioning = false;
-const activeTimeouts: number[] = [];
-
 // Wrapper to track timeouts
+const activeTimeouts: number[] = [];
 function setTrackedTimeout(callback: Function, delay: number) {
   const id = window.setTimeout(() => {
     callback();
@@ -230,6 +217,11 @@ function clearAllTimeouts() {
   activeTimeouts.forEach(id => clearTimeout(id));
   activeTimeouts.length = 0;
 }
+
+let currentSlide = 1;
+const totalSlides = 8;
+const slides = document.querySelectorAll('.slide');
+let isTransitioning = false;
 
 // Clean up all slides - reset to initial state
 function cleanupAllSlides() {
@@ -288,47 +280,44 @@ function goToSlide(n: number) {
   
   isTransitioning = true;
   
-  // Kill all running GSAP animations and clean up
+  // Reset state before transition
   cleanupAllSlides();
   
   const oldSlide = slides[currentSlide - 1] as HTMLElement;
   const newSlide = slides[n - 1] as HTMLElement;
   
-  // Make sure only new slide will be active
-  slides.forEach((slide) => {
-    if (slide !== newSlide && slide !== oldSlide) {
-      (slide as HTMLElement).classList.remove('active');
-    }
-  });
-  
-  // Set up new slide behind old slide
-  newSlide.classList.add('active');
-  newSlide.style.zIndex = '1';
-  newSlide.style.opacity = '1';
-  oldSlide.style.zIndex = '2';
+  // 1. Fade OUT old slide
+  // Make sure old slide stays visible during fade out
+  oldSlide.style.zIndex = '1';
   oldSlide.style.opacity = '1';
   
-  // Smooth fade transition - old slide fades out, revealing new slide behind
   gsap.to(oldSlide, {
     opacity: 0,
-    duration: 0.6,
+    duration: 0.5,
     ease: 'power2.inOut',
     onComplete: () => {
       oldSlide.classList.remove('active');
       oldSlide.style.zIndex = '';
-      oldSlide.style.opacity = '';
-      newSlide.style.zIndex = '';
-      isTransitioning = false;
-      animateSlide(n);
+      
+      // 2. Prepare new slide
+      newSlide.classList.add('active');
+      newSlide.style.opacity = '0'; // Start invisible
+      newSlide.style.zIndex = '2';
+      
+      // 3. Fade IN new slide
+      gsap.to(newSlide, {
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          isTransitioning = false; // Unlock navigation
+          animateSlide(n);
+        }
+      });
     }
   });
   
   currentSlide = n;
-  slideCounter.textContent = String(n);
-  
-  // Theme for nav hint (white slides: 1, 3, 5, 7)
-  const whiteSlides = [1, 3, 5, 7];
-  navHint.className = whiteSlides.includes(n) ? 'nav-hint dark' : 'nav-hint';
 }
 
 function nextSlide() { if (currentSlide < totalSlides && !isTransitioning) goToSlide(currentSlide + 1); }
