@@ -811,6 +811,7 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
       }]
     },
     options: { 
+      layout: { padding: 0 }, /* ZERO padding to max out size */
       responsive: true, 
       maintainAspectRatio: false, 
       cutout: '65%', 
@@ -824,6 +825,9 @@ function buildDonutChart(canvasId: string, legendId: string, data: {label: strin
       } 
     }
   });
+
+  // Animate the canvas entrance itself to avoid "missing animation" feel
+  gsap.from(canvas, { opacity: 0, scale: 0.8, duration: 0.5, ease: 'back.out(1.2)' });
   
   // Build legend
   const legend = document.getElementById(legendId)!;

@@ -673,9 +673,10 @@ body {
   }
 
   /* SLIDE 5 & 6: DONUTS */
+  /* SLIDE 5 & 6: DONUTS */
   .donut-area { 
     flex-direction: column; 
-    gap: 30px; /* Increased gap to prevent overlap */
+    gap: 40px; /* Increased gap even more */
     height: auto;
     width: 100%;
     align-items: center;
@@ -685,8 +686,12 @@ body {
     width: 250px;
     height: 250px;
     margin: 0 auto;
-    position: relative; /* Ensure containment */
+    position: relative; 
   }
+
+  /* Shrink text inside donut for mobile to prevent overlap */
+  .donut-center .donut-pct { font-size: 2.5rem; }
+  .donut-center .donut-lbl { font-size: 0.6rem; }
   
   .donut-legend {
     width: 100%;
