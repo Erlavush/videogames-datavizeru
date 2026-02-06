@@ -250,6 +250,56 @@ const totalSlides = 8;
 const slides = document.querySelectorAll('.slide');
 let isTransitioning = false;
 
+// ============================================
+// PROGRESS INDICATOR
+// ============================================
+
+/**
+ * Creates a visual progress indicator showing current slide position.
+ * Dots are clickable for direct navigation to any slide.
+ */
+function createProgressIndicator() {
+  const progressBar = document.createElement('nav');
+  progressBar.className = 'slide-progress';
+  progressBar.setAttribute('role', 'navigation');
+  progressBar.setAttribute('aria-label', 'Slide navigation');
+
+  for (let i = 1; i <= totalSlides; i++) {
+    const dot = document.createElement('button');
+    dot.className = `progress-dot${i === 1 ? ' active' : ''}`;
+    dot.setAttribute('aria-label', `Go to slide ${i}`);
+    dot.setAttribute('aria-current', i === 1 ? 'true' : 'false');
+    dot.dataset.slide = String(i);
+    
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent triggering the document click handler
+      const slideNum = parseInt(dot.dataset.slide || '1');
+      if (slideNum !== currentSlide && !isTransitioning) {
+        goToSlide(slideNum);
+      }
+    });
+    
+    progressBar.appendChild(dot);
+  }
+
+  document.body.appendChild(progressBar);
+}
+
+/**
+ * Updates the progress indicator to reflect the current slide.
+ */
+function updateProgressIndicator() {
+  const dots = document.querySelectorAll('.progress-dot');
+  dots.forEach((dot, index) => {
+    const isActive = index + 1 === currentSlide;
+    dot.classList.toggle('active', isActive);
+    dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+  });
+}
+
+// Create progress indicator on load
+createProgressIndicator();
+
 // Clean up all slides - reset to initial state
 function cleanupAllSlides() {
   // Kill all GSAP animations
@@ -456,6 +506,7 @@ function goToSlide(n: number) {
     });
 
     currentSlide = n;
+    updateProgressIndicator(); // Update progress dots
   });
 }
 

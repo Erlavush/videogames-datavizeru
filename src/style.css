@@ -40,6 +40,90 @@ body {
 }
 
 /* ============================================
+   ACCESSIBILITY - Focus Visible
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* Skip link focus state */
+.skip-link:focus {
+  position: fixed !important;
+  left: 10px !important;
+  top: 10px !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 8px 16px;
+  background: var(--black);
+  color: var(--white);
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ============================================
+   SLIDE PROGRESS INDICATOR
+   ============================================ */
+
+.slide-progress {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.progress-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.progress-dot.active {
+  background: var(--white);
+  transform: scale(1.3);
+}
+
+/* White slide variant */
+.slide-white .slide-progress,
+body:has(.slide-white.active) .slide-progress {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.slide-white .progress-dot,
+body:has(.slide-white.active) .progress-dot {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.slide-white .progress-dot:hover,
+body:has(.slide-white.active) .progress-dot:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.slide-white .progress-dot.active,
+body:has(.slide-white.active) .progress-dot.active {
+  background: var(--black);
+}
+
+/* ============================================
    SLIDES
    ============================================ */
 
